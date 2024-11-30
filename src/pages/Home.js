@@ -1,8 +1,13 @@
 import React from 'react'
+import Hero from '../components/Hero'
+import FeaturedCities from '../components/FeaturedCities'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <React.Fragment>
+      <Hero/>
+      <FeaturedCities/>
+    </React.Fragment>
   )
 }
 
