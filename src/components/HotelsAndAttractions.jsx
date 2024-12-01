@@ -14,7 +14,7 @@ const HotelsAndAttractions = ({type, heading, subHeading, products }) => {
 
         <div className="cards">
         {products.map((e, i) => {
-          return <HotelAndAttractionCard key={heading+i}imageSrc={e.url} productTitle={e.name} />
+          return <HotelAndAttractionCard key={heading+i}imageSrc={e.url} productTitle={e.name} linkTo={'/details'} />
         })}
         </div>
     </section>

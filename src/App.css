@@ -31,7 +31,8 @@ html{
 :root{
   --white: #fff;
   --text-dim: #aaa;
-  --light-gray: #ececec;
+  --text-para: #777;
+  --light-gray: #e2e1e1;
   --dark-gray: #d9d8d8;
   --primary: #0e59ef;
   --primary-light: #0e7cea	;
@@ -45,6 +46,12 @@ html{
   font-family: "Parkinsans", sans-serif;
   font-size: 1.45rem;
   font-weight: 600;
+}
+
+h1 {
+  font-size: 5.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
 }
 
 .h1-light {
@@ -109,6 +116,19 @@ p {
   color: var(--white) !important;
   padding: 15px 20px;
   border-radius: 100px;
+}
+
+.primary-btn-sm{
+  background-color: var(--primary);
+  color: var(--white) !important;
+  padding: 12px 14px;
+  border-radius: 100px;
+}
+
+.primary-btn-sm:hover{
+  background-color: var(--primary-light) !important;
+  color: var(--white) !important;
+  
 }
 
 .primary-btn:hover{

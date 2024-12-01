@@ -66,8 +66,8 @@ const AddNewPlace = () => {
             <label htmlFor="place-location">Picutres</label>
             <input
               type="file"
-              id="place-pictures"
-              name="place-pictures"
+              id="place-picture"
+              name="place-picture"
               required
             />
           </div>

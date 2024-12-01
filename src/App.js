@@ -6,6 +6,7 @@ import Layout from './layout/index';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Listings from './pages/Listings';
 import AddNewPlace from './components/AddNewPlace';
+import Details from './pages/Details';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/listing-hotels" element={<Listings choice='Hotels' />} />
         <Route path="/listing-attractions" element={<Listings choice='Attractions' />} />
         <Route path="/add-place" element={<AddNewPlace/>} />
+        <Route path="/details" element={<Details/>} />
         
       </Route>
     </Routes>
