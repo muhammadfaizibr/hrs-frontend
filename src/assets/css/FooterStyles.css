@@ -2,13 +2,15 @@
     background-color:var(--text-dark);
     color: var(--text-dim);
     padding: 40px 0 20px 0;
+    margin-top: 20px;
+
   }
   
   .footer-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    max-width: 80%;
+    width: 80%;
     margin: 0 auto;
   }
 
@@ -58,7 +60,7 @@
     margin-top: 40px;
     border-top: 1px solid var(--text);
     padding-top: 20px;
-    font-size: 0.9em;
+    font-size: 2rem;
   }
   
   /* Social links */
@@ -75,11 +77,23 @@
   
 
   
-  /* Responsive design */
+  @media (max-width: 1400px) {
+
+    .footer-container {
+      width: 90% !important;
+    }}
   @media (max-width: 768px) {
+
     .footer-container {
       flex-direction: column;
       align-items: flex-start;
+      gap: 30px;
+    }
+    .footer-column ul li a, .footer-column p{
+      font-size: 1.8rem;
+    }
+    .footer-column{
+      width: 100%;
     }
   
   }

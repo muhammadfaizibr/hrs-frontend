@@ -12,7 +12,7 @@ const DetailsReviews = () => {
 
     
     <div className="details-reviews">
-      <h4>Ratings & Reviews </h4>
+      <h3>Ratings & Reviews </h3>
 
       <div className="ratings-and-write-review-combined">
         

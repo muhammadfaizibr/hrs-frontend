@@ -3,9 +3,9 @@ import '../assets/css/FeaturedCitiesStyles.css'
 import CityCard from './CityCard';
 
 const cities = [
-  {name: 'Karachi', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Jinnah_Mausoleum_%28cropped%29.JPG/1600px-Jinnah_Mausoleum_%28cropped%29.JPG'},
-  {name: 'Lahore', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Minar-e-Pakistan_by_ZILL_NIAZI_3.jpg/440px-Minar-e-Pakistan_by_ZILL_NIAZI_3.jpg'},
-  {name: 'Islamabad', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/New_Faisal_Mosque_Islamabad.jpg/440px-New_Faisal_Mosque_Islamabad.jpg'},
+  {name: 'Karachi', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Jinnah_Mausoleum_%28cropped%29.JPG/1600px-Jinnah_Mausoleum_%28cropped%29.JPG', link: '/details'},
+  {name: 'Lahore', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Minar-e-Pakistan_by_ZILL_NIAZI_3.jpg/440px-Minar-e-Pakistan_by_ZILL_NIAZI_3.jpg', link: '/details'},
+  {name: 'Islamabad', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/New_Faisal_Mosque_Islamabad.jpg/440px-New_Faisal_Mosque_Islamabad.jpg', link: '/details'},
 ]
 
 const FeaturedCities = () => {
@@ -18,7 +18,7 @@ const FeaturedCities = () => {
 
         <div className="cities">
         {cities.map((e, i) => {
-          return <CityCard key={"cities"+i}imageSrc={e.url} cityName={e.name} />
+          return <CityCard key={"cities"+i}imageSrc={e.url} cityName={e.name} linkTo={e.link} />
         })}
         </div>
     </section>

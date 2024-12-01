@@ -81,3 +81,8 @@
     text-decoration: underline;
   }
   
+
+  @media screen and (max-width: 420px) {
+    .form-box{ width: 94%; padding: 20px 14px;}
+    
+  }

@@ -58,9 +58,9 @@ const Sidebar = () => {
       <div className="filter-group">
         <h4>Rating Threshold</h4>
         <div className="rating-buttons">
-          {ratings.map((rating) => (
+          {ratings.map((rating, i) => (
             <button
-              key={rating}
+              key={rating+i}
               className={`rating-button ${
                 ratingThreshold === rating ? "active" : ""
               }`}

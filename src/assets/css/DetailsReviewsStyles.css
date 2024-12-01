@@ -27,7 +27,7 @@
 }
 
 .overall-ratings h1{
-    font-size: 10rem;
+    font-size: 10rem !important;
 }
 
 .rating-stars{
@@ -54,4 +54,49 @@
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+}
+
+
+@media screen and (max-width: 768px) {
+    .details-reviews{
+      margin: 20px 0;
+    }
+    
+      
+    }
+
+@media screen and (max-width: 620px) {
+    .overall-ratings h1{
+        font-size: 8rem !important;
+    }
+    .rating-stars svg{
+        font-size: 4.4rem !important;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .overall-ratings h1{
+        font-size: 6rem !important;
+    }
+    .rating-stars svg{
+        font-size: 3.4rem !important;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .overall-ratings h1{
+        font-size: 4.4rem !important;
+    }
+    .rating-stars svg{
+        font-size: 2.8rem !important;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .overall-ratings h1{
+        font-size: 4rem !important;
+    }
+    .rating-stars svg{
+        font-size: 2.4rem !important;
+    }
 }

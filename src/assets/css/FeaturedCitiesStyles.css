@@ -7,7 +7,7 @@
     background-color: var(--white);
     /* border: 1px solid var(--light-gray); */
     /* padding: 20px; */
-    gap: 20px;
+    gap: 50px;
 }
 
 .featured-cities .content{
@@ -20,6 +20,13 @@
 .featured-cities .cities{
     display: grid;
     overflow: scroll;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust minmax values as needed */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
     gap: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .featured-cities{
+        gap: 20px;
+    }
+    
 }

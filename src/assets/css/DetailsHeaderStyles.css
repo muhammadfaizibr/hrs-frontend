@@ -75,3 +75,30 @@ section.details-header .header-details {
 }
 
 
+
+@media screen and (max-width: 1024px) {
+
+  section.details-header .featured-img {
+    min-width: 220px;
+    height: 220px;
+  }
+  
+}
+
+@media screen and (max-width: 768px) {
+
+  section.details-header {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  section.details-header .featured-img  {
+    width: 100%;
+  }
+.details-header{
+  margin: 20px 0;
+}
+
+  
+}

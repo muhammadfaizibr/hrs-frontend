@@ -55,12 +55,18 @@
   padding: 14px 20px;
   background-color: rgba(0, 0, 0, 0.5);
   color: var(--white);
-  border-radius: 100px;
+  border-radius: 2rem;
   box-shadow: 2.8px 2.8px 2.2px rgb(0, 0, 0, 0.02),
   6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
   12.5px 12.5px 10px rgba(0, 0, 0, 0.035);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
 }
-
+.hero .hero-action .selection-bar button svg{
+  font-size: 2.8rem;
+}
 
 .search-bar {
   
@@ -75,6 +81,7 @@
 
 }
 
+
 .search-bar input {
   width: 100%;
   padding: 0px;
@@ -87,6 +94,13 @@
   box-shadow: none !important;
 }
 
+@media screen and (max-width: 768px) {
+  .hero{
+    margin: 20px 0;
+  }
+  
+    
+  }
 
 @media (max-width: 800px) {
   .hero-action {
@@ -94,5 +108,9 @@
   }
   .hero .hero-action .selection-bar {
     gap: 8px;
+  }
+
+  .hero{
+    min-height: 50vh;
   }
 }

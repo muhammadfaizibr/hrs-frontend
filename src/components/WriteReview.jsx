@@ -25,7 +25,7 @@ const WriteReview = () => {
           const starValue = i + 1;
           return (
             <FaStar
-              key={i}
+              key={"stars"+i}
               className={`star ${starValue <= (hover || rating) ? "start-active" : ""}`}
               onClick={() => setRating(starValue)}
               onMouseEnter={() => setHover(starValue)}

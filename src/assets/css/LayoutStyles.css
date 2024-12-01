@@ -8,4 +8,13 @@
         width: 90%;
     }
     
+
+
 }
+
+@media screen and (max-width: 768px) {
+    .layout-setting{
+        width: 90%;
+    }
+    
+  }

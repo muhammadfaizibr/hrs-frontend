@@ -44,5 +44,28 @@
     padding-bottom: 10px;
   }
   
+  @media screen and (max-width: 768px) {
 
+  .details-reviews{
+    padding: 24px 16px;
+  }
+}
+@media screen and (max-width: 620px) {
+  .review-container {
+    min-width: 100%;
+  }
+  .overall-ratings{
+    width: 100%;
+    padding: 18px;
+    /* justify-content: space-between; */
+    gap: 20px;
+  }
+
+  .overall-ratings .rating-stars svg{
+    font-size: 2.8rem;
+  }
   
+}
+
+
+

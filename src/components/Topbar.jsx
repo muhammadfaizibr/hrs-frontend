@@ -1,12 +1,24 @@
 import React from 'react'
 import '../assets/css/TopbarStyles.css';
+import { IoIosMail } from "react-icons/io";
+import { HiLocationMarker } from 'react-icons/hi';
+import { MdOutlineAccessTimeFilled } from "react-icons/md";
+
 
 const Topbar = () => {
   return (
     <div className="topbar">
         <div className="content">
-            <p className='parkinsans-sm-text-light'>Mon–Sat: 9am to 6pm</p>
-            <p className='parkinsans-sm-text-light'>Houston, USA 485</p>
+          <div className="content-group">
+
+            <p className='parkinsans-sm-text-light'><MdOutlineAccessTimeFilled/>Mon–Sat: 9am to 6pm</p>
+            <p className='parkinsans-sm-text-light'><HiLocationMarker/>Houston, USA 485</p>
+          </div>
+
+          <div className="content-group">
+          <p className='parkinsans-sm-text-light'><IoIosMail/>contact@domain.com</p>
+</div>
+
         </div>
     </div>
   )

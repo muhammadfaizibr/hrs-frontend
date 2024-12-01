@@ -16,7 +16,7 @@ const DetailsHeader = ({ productTitle, imageSrc}) => {
         <p className="product-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos cupiditate voluptate autem illum ipsum unde, atque omnis amet modi. Quidem in quaerat sapiente, autem cumque dolores provident sequi et omnis fugiat amet rerum placeat iusto. Numquam provident odio, ab quae aliquam sunt, repellat culpa ex sapiente neque a dolore deserunt nesciunt saepe. Odit vel sequi, deleniti possimus nulla dolorem error commodi culpa est quam accusantium esse reprehenderit obcaecati deserunt, iure atque eligendi doloribus ipsa modi aspernatur aperiam recusandae repellendus. Fugiat officia architecto nobis nam, error voluptatem inventore repudiandae esse dicta distinctio. Eveniet nobis at perspiciatis ipsum, est sint blanditiis officia?</p>
 
         <div className="product-amenities">
-            <h4>Amenities</h4>
+            <h3>Amenities</h3>
             <ul>
                 <li className="amenities">Free Wifi</li>
                 <li className="amenities">Cleaing Service</li>
