@@ -113,4 +113,16 @@
   .hero{
     min-height: 50vh;
   }
+  .hero h1{
+    max-width: 80%;
+  }
+}
+
+@media screen and (max-width: 425px){
+  .hero .hero-action{
+    width: 94% !important;
+  }
+  .hero h1{
+    max-width: 90%;
+  }
 }

@@ -10,8 +10,8 @@ const DetailsHeader = ({ productTitle, imageSrc}) => {
     <section className="details-header">
       <div className="header-details">
         <h2 className="product-title">{productTitle}</h2>
-        <p className="rating-reveiws"><FaStar/>4.1 <GoDotFill className="dot"/> 67 reviews <GoDotFill className="dot"/>  <HiLocationMarker/>1605 Broadway, New York City, NY 10019</p>
-        <p className="rating-reveiws"><IoIosMail/> contact@domain.com <GoDotFill className="dot"/> <IoMdCall/>91 242 (995)</p>
+        <p className="rating-reveiws"><span><FaStar/>4.1 <GoDotFill className="dot"/> 67 reviews</span> <GoDotFill className="dot"/> <span> <HiLocationMarker/>1605 Broadway, New York City, NY 10019</span></p>
+        <p className="rating-reveiws"><span><IoIosMail/> contact@domain.com</span> <GoDotFill className="dot"/> <span><IoMdCall/>91 242 (995)</span></p>
 
         <p className="product-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos cupiditate voluptate autem illum ipsum unde, atque omnis amet modi. Quidem in quaerat sapiente, autem cumque dolores provident sequi et omnis fugiat amet rerum placeat iusto. Numquam provident odio, ab quae aliquam sunt, repellat culpa ex sapiente neque a dolore deserunt nesciunt saepe. Odit vel sequi, deleniti possimus nulla dolorem error commodi culpa est quam accusantium esse reprehenderit obcaecati deserunt, iure atque eligendi doloribus ipsa modi aspernatur aperiam recusandae repellendus. Fugiat officia architecto nobis nam, error voluptatem inventore repudiandae esse dicta distinctio. Eveniet nobis at perspiciatis ipsum, est sint blanditiis officia?</p>
 
