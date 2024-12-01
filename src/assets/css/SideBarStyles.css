@@ -1,0 +1,90 @@
+/* Sidebar styles */
+.sidebar {
+    width: 480px;
+    border-right: 1px solid var(--light-gray);
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    position: sticky;
+    top: 50px;
+    padding-right: 40px;
+  }
+  
+
+  .filter-group{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+ 
+  
+  .filter-group select,
+  .filter-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--light-gray);
+    border-radius: 1rem;
+    font-size: 14px;
+  }
+  
+  .filter-group span {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  /* Category Buttons */
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .category-button {
+    flex: 1 1 calc(33.33% - 10px);
+    padding: 10px;
+    border: 1px solid var(--light-gray);
+    border-radius: 1rem;
+    background-color: var(--white);
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .category-button.active,
+  .category-button:hover {
+    background-color: var(--primary);
+    color: var(--white);
+  }
+  
+  /* Rating Buttons */
+  .rating-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .rating-button {
+    flex: 1 1 calc(50% - 10px);
+    padding: 10px;
+    border: 1px solid var(--light-gray);
+    border-radius: 1rem;
+    background-color: var(--white);
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .rating-button.active,
+  .rating-button:hover {
+    background-color: var(--primary);
+    color: var(--white);
+  }
+  

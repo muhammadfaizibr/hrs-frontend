@@ -4,13 +4,13 @@ import HotelAndAttractionCard from './HotelAndAttractionCard';
 import PropTypes from "prop-types";
 
 
-const HotelsAndAttractions = ({ heading, subHeading, products }) => {
+const HotelsAndAttractions = ({type, heading, subHeading, products }) => {
   return (
     <section className='featured-cards'>
-        <div className="content">
+        {type === "listing" ? "" : <div className="content">
             <h2>{ heading }</h2>
             <p>{ subHeading }</p>
-        </div>
+        </div>}
 
         <div className="cards">
         {products.map((e, i) => {
@@ -22,6 +22,7 @@ const HotelsAndAttractions = ({ heading, subHeading, products }) => {
 }
 
 HotelsAndAttractions.propTypes = {
+  type: PropTypes.string.isRequired,
   heading: PropTypes.string.isRequired,
   subHeading: PropTypes.string.isRequired,
   products: PropTypes.array.isRequired,

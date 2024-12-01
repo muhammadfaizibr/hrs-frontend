@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import "../assets/css/NavbarStyles.css";
 const routes = [
   { name: "Home", link: "/" },
-  { name: "Hotels", link: "/hotels" },
-  { name: "Attractions", link: "/attractions" },
+  { name: "Hotels", link: "/listing-hotels" },
+  { name: "Attractions", link: "/listing-attractions" },
   { name: "Weather", link: "/weather" },
 ];
 

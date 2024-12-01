@@ -59,6 +59,18 @@ html{
   color: var(--white);
 }
 
+h3 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+h4 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
 h2 {
   font-size: 3.2rem;
   font-weight: 700;
@@ -141,4 +153,12 @@ button:disabled:hover{
 .dot{
   color: var(--secondary);
   font-size: 1rem;
+}
+
+ select, option, input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--light-gray);
+  border-radius: 1rem;
+  font-size: 1.6rem;
 }
