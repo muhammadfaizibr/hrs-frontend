@@ -13,7 +13,7 @@ nav .nav-container{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 70%;
+    width: 80%;
 }
 
 
@@ -55,4 +55,11 @@ nav .nav-container ul li a{
 nav .nav-container ul li a:hover{
     background-color: var(--light-gray);
     color: var(--text-dark);
+}
+
+@media only screen and (max-width: 1400px) {
+    nav .nav-container{
+        width: 90%;
+    }
+    
 }

@@ -14,7 +14,8 @@ body {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f7f9fd;
+  background-color: var(--white);
+  /* background-color: #f7f9fd; */
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -29,6 +30,7 @@ html{
 
 :root{
   --white: #fff;
+  --text-dim: #aaa;
   --light-gray: #ececec;
   --dark-gray: #d9d8d8;
   --primary: #0e59ef;
@@ -51,6 +53,12 @@ html{
   color: var(--white);
 }
 
+.h3-light {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
 h2 {
   font-size: 3.2rem;
   font-weight: 700;
@@ -62,6 +70,7 @@ p {
   font-size: 1.4rem;
   font-weight: 500;
   color: var(--text);
+  text-decoration: none;
 }
 
 .parkinsans-sm-text-light {
@@ -107,6 +116,7 @@ button{
   border: none;
   background-color: transparent;
   cursor: pointer;
+  text-decoration: none;
 }
 
 input[type="text"]{
@@ -126,4 +136,9 @@ button:disabled:hover{
   background-color: var(--light-gray) !important;
   cursor: default !important;
   color: var(--text) !important;
+}
+
+.dot{
+  color: var(--secondary);
+  font-size: 1rem;
 }

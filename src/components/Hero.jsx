@@ -16,8 +16,8 @@ const Hero = () => {
 
         <div className="hero-action">
             <div className="selection-bar">
-                {options_to_serach.map((e) => {
-                    return <button key={e.name.toLowerCase()} className={`parkinsans-m-text ${e.name.toLowerCase() === selection ? 'active' : ''}`} onClick={() => {setSelection(e.name.toLowerCase())} }>{e.name}</button>
+                {options_to_serach.map((e, i) => {
+                    return <button key={e.name+i} className={`parkinsans-m-text ${e.name.toLowerCase() === selection ? 'active' : ''}`} onClick={() => {setSelection(e.name.toLowerCase())} }>{e.name}</button>
                 })}
             </div>
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../assets/css/NavbarStyles.css";
 const routes = [
-  { name: "Home", link: "/home" },
+  { name: "Home", link: "/" },
   { name: "Hotels", link: "/hotels" },
   { name: "Attractions", link: "/attractions" },
   { name: "Weather", link: "/weather" },
@@ -22,10 +22,10 @@ const Navbar = () => {
         </div>
         <div className="group">
           <ul>
-            {routes.map((e) => {
+            {routes.map((e, i) => {
               return (
                 <li>
-                  <Link className="parkinsans-sm-highlited-text" to={e.link}>
+                  <Link key={e.name+i} className="parkinsans-sm-highlited-text" to={e.link}>
                     {e.name}
                   </Link>
                 </li>
@@ -36,12 +36,12 @@ const Navbar = () => {
         <div className="group">
           <ul>
             <li>
-              <Link className="parkinsans-sm-highlited-text secondary-btn">
+              <Link to="/login" className="parkinsans-sm-highlited-text secondary-btn">
                 Login
               </Link>
             </li>
             <li>
-              <Link className="parkinsans-sm-highlited-text primary-btn">
+              <Link to="/signup" className="parkinsans-sm-highlited-text primary-btn">
                 Sign Up
               </Link>
             </li>

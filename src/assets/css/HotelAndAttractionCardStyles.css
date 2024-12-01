@@ -1,0 +1,75 @@
+.card-anchor{
+  text-decoration: inherit;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: var(--white);
+    text-decoration: none;
+    flex-basis: 1 1 320px;
+    gap: 10px;
+    @media (max-width: 768px) {
+      flex-basis: 100%;
+    }
+  }
+  
+  .card .featured-img {
+    display: flex;
+    position: relative;
+    flex-grow: 1;
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+  }
+
+  .card .featured-img img:hover{
+    transform: scale(1.15);
+  
+  }
+  
+  .card .featured-img img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    border-radius: 1rem;
+  }
+  
+  .card .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;  
+    display: flex;
+    flex-direction: column;
+    @media (max-width: 768px) {
+      font-size: 0.8em;
+    }
+  }
+  
+  .card .card-footer .product-title{
+    font-size: 1.8rem;
+    color: var(--text-dark);
+  }
+  
+
+  .card:hover > .featured-img{
+    filter: opacity(0.8);
+    box-shadow: none;
+
+  }
+  .card:hover .product-title{
+    text-decoration: underline;
+  }
+
+
+  .card-footer .rating-reveiws{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    text-decoration: none !important;
+  }
+

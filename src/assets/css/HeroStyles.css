@@ -85,3 +85,13 @@
   color: var(--white);
   box-shadow: none !important;
 }
+
+
+@media (max-width: 800px) {
+  .hero-action {
+    width: 90% !important;
+  }
+  .hero .hero-action .selection-bar {
+    gap: 8px;
+  }
+}
