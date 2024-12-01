@@ -28,11 +28,14 @@ border-radius: 1.2rem;
   object-fit: cover;
   aspect-ratio: 3/2;
 border-radius: 1.2rem;
+transition: .3s all ease-in-out;
 
 }
 
 .city-card .featured-img img:hover{
   transform: scale(1.25);
+  transition: .3s all ease-in-out;
+
 
 }
 

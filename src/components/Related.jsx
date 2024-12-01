@@ -1,10 +1,6 @@
-import React, { useEffect, useContext } from 'react'
-import SearchBar from '../components/SearchBar';
-import HotelsAndAttractions from '../components/HotelsAndAttractions'
-import '../assets/css/ListingStyles.css'
-import Sidebar from '../components/SideBar';
-import PropTypes from "prop-types";
-import { ProgressContext } from '../contexts/ProgressContext'
+import React from "react";
+import "../assets/css/RelatedStyles.css";
+import HotelsAndAttractions from '../components/HotelsAndAttractions';
 
 const products = [
   {name: 'Karachi', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Jinnah_Mausoleum_%28cropped%29.JPG/1600px-Jinnah_Mausoleum_%28cropped%29.JPG'},
@@ -17,32 +13,16 @@ const products = [
   {name: 'Lahore', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Minar-e-Pakistan_by_ZILL_NIAZI_3.jpg/440px-Minar-e-Pakistan_by_ZILL_NIAZI_3.jpg'},
 ]
 
-const Listings = ({ choice }) => {
-  const setProgress = useContext(ProgressContext);
-
-  useEffect(() => {
-   setProgress(100); 
-  }, [setProgress]);
+const Related = () => {
   return (
-        <section className="listing-wrapper">
-            <div className="listing-header">
 
-                <h2>Discover { choice }.</h2>
-            <SearchBar/>
-            </div>
-        <div className="listing-content">
-            <Sidebar/>
-        <HotelsAndAttractions type="listing" heading="Top Hotels" subHeading="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptatum? Ducimus nostrum beatae placeat illo." products={products} />
-        </div>
+    
+    <div className="realted-products">
+      <h4>You may also like</h4>
+      <HotelsAndAttractions type="listing" heading="Top Hotels" subHeading="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptatum? Ducimus nostrum beatae placeat illo." products={products} />
 
-        </section>
+    </div>
+  );
+};
 
-  )
-}
-
-
-Listings.propTypes = {
-    choice: PropTypes.string.isRequired,
-  };
-
-export default Listings
+export default Related;

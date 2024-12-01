@@ -2,6 +2,9 @@ import React from "react";
 import "../assets/css/DetailsReviewsStyles.css";
 import { FaStar, FaRegStarHalfStroke, FaRegStar } from "react-icons/fa6";
 import Review from "./Review";
+import WriteReview from '../components/WriteReview';
+
+
 
 const DetailsReviews = () => {
     const rating_number = 2.5;
@@ -10,6 +13,9 @@ const DetailsReviews = () => {
     
     <div className="details-reviews">
       <h4>Ratings & Reviews </h4>
+
+      <div className="ratings-and-write-review-combined">
+        
       <div className="overall-ratings">
         <h1>4.5</h1>
         <div className="ratings">
@@ -29,10 +35,15 @@ const DetailsReviews = () => {
         <div className="rating-annotates">
 
         <p className="total-ratings">Total Reviews: 45</p>
-        <button className="primary-btn-sm">Write a Review</button>
+        {/* <button className="primary-btn-sm">Write a Review</button> */}
         </div>
         </div>
       </div>
+
+
+      <WriteReview/>
+      </div>
+
     
     <Review/>
     <Review/>

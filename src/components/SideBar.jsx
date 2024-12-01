@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import "../assets/css/SideBarStyles.css";
-import SearchBar from "./SearchBar";
 
-const Sidebar = ({ onFilterChange }) => {
+const Sidebar = () => {
   const [sortOption, setSortOption] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  // const [selectedCategory, setSelectedCategory] = useState("");
   const [ratingThreshold, setRatingThreshold] = useState(0);
 
-  const categories = ["Electronics", "Fashion", "Home", "Books", "All Categories"];
+  // const categories = ["Electronics", "Fashion", "Home", "Books", "All Categories"];
   const ratings = [5, 4, 3, 2, 1];
 
   const handleFilterChange = () => {
-    onFilterChange({ sortOption, selectedCategory, ratingThreshold });
   };
 
   return (

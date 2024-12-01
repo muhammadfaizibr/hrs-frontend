@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../assets/css/FormStyles.css";
-import { Link } from "react-router-dom";
 
 
 const place_type = [

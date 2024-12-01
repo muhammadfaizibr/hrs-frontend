@@ -14,9 +14,9 @@
     border: 1px solid var(--light-gray);
     padding: 24px;
     border-radius: 1rem;
-    width: fit-content;
     align-items: center;
     gap: 40px;
+    /* flex: 1 1 100px; */
 }
 
 .ratings{
@@ -38,7 +38,7 @@
 
 .rating-stars svg{
     font-size: 3.4rem;
-    color: orange;
+    color: var(--star-orange);
 }
 
 
@@ -50,3 +50,8 @@
 }
 
 
+.ratings-and-write-review-combined{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}

@@ -54,7 +54,7 @@
 }
 
 .review .review-content .reviewer-ratings svg{
-    color: orange;
+    color: var(--star-orange);
 }
 
 

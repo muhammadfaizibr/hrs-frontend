@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "../assets/css/NavbarStyles.css";
 const routes = [
   { name: "Home", link: "/" },
@@ -25,9 +25,9 @@ const Navbar = () => {
             {routes.map((e, i) => {
               return (
                 <li>
-                  <Link key={e.name+i} className="parkinsans-sm-highlited-text" to={e.link}>
+                  <NavLink exact key={e.name+i} className="parkinsans-sm-highlited-text" to={e.link}>
                     {e.name}
-                  </Link>
+                  </NavLink>
                 </li>
               );
             })}
@@ -36,7 +36,7 @@ const Navbar = () => {
         <div className="group">
           <ul>
             <li>
-              <Link to="/login" className="parkinsans-sm-highlited-text secondary-btn">
+              <Link to="/login" className="parkinsans-sm-highlited-text tertiary-btn">
                 Login
               </Link>
             </li>

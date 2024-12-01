@@ -3,7 +3,6 @@ import '../assets/css/HeroStyles.css';
 
 const options_to_serach = [
     {name: "Hotels"},
-    {name: "Weather"},
     {name: "Attractions"}
 ]
 

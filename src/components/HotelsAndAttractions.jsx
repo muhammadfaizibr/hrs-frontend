@@ -2,6 +2,7 @@ import React from 'react';
 import '../assets/css/FeaturedCardsSectionStyles.css'
 import HotelAndAttractionCard from './HotelAndAttractionCard';
 import PropTypes from "prop-types";
+import { FiArrowRight } from "react-icons/fi";
 
 
 const HotelsAndAttractions = ({type, heading, subHeading, products }) => {
@@ -17,6 +18,7 @@ const HotelsAndAttractions = ({type, heading, subHeading, products }) => {
           return <HotelAndAttractionCard key={heading+i}imageSrc={e.url} productTitle={e.name} linkTo={'/details'} />
         })}
         </div>
+        {type === "listing" ? "" : <button className='tertiary-btn'>View More <FiArrowRight/></button>}
     </section>
   )
 }
