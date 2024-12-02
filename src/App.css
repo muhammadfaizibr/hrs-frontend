@@ -33,7 +33,7 @@ html{
   --text-para: #777;
   --light-gray: #e2e1e1;
   --dark-gray: #d9d8d8;
-  --primary: #0e59ef;
+  --primary: #0e4aef;
   --primary-light: #0e7cea	;
   --secondary: #385170;
   --text: #142d4c;
@@ -212,6 +212,11 @@ button:disabled:hover{
   text-decoration: underline;
   background-color: none !important;
 
+}
+
+.form-field-error{
+  margin: 4px 0;
+  color: red;
 }
 
 @media screen and (max-width: 768px) {

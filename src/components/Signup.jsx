@@ -1,38 +1,92 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/css/FormStyles.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRegisterUserMutation } from "../services/userAuthAPI";
+import { storeToken } from "../services/localStorageService";
+import { useDispatch } from "react-redux";
+import { setUserToken } from "../features/authSlice";
+import { getToken } from "../services/localStorageService";
+import verifyToken from "../features/verifyToken";
 
 const Signup = () => {
-  const handleSignup = (e) => {
-    e.preventDefault();
-    alert("Signup Successful!");
+  const [server_error, setServerError] = useState({});
+  const [generalError, setGeneralError] = useState();
+
+  let { access_token } = getToken();
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSignup = async (e) => {
+    try {
+      setGeneralError("");
+      e.preventDefault();
+      const data = new FormData(e.currentTarget);
+      const actualData = {
+        username: data.get("username"),
+        email: data.get("email"),
+        password: data.get("password"),
+        confirm_password: data.get("confirm-password"),
+      };
+      const res = await registerUser(actualData);
+      if (res.error) {
+        setServerError(res.error.data.errors);
+      }
+      if (res.data) {
+        storeToken(res.data.token);
+        let { access_token } = getToken();
+        dispatch(setUserToken({ access_token: access_token }));
+        navigate("/");
+      }
+    } catch (error) {
+      setServerError({});
+      setGeneralError("An error occured, try again later!");
+    }
   };
+
+  useEffect(() => {
+    dispatch(setUserToken({ access_token: access_token }));
+    const callVerifyToken = async () => {
+      if ((await verifyToken())){
+        navigate("/");
+      }}
+      callVerifyToken()
+  }, [access_token, dispatch]);
 
   return (
     <div className="form-container">
       <div className="form-box">
         <h2>Signup</h2>
         <form onSubmit={handleSignup}>
-        <div className="form-group">
+          <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
               type="username"
               id="username"
               name="username"
               placeholder="Enter your username"
-              required
             />
+            {server_error?.username ? (
+              <p className="form-field-error">{server_error.username[0]}</p>
+            ) : (
+              ""
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="email">Email</label>
-            
+
             <input
               type="email"
               id="email"
               name="email"
               placeholder="Enter your email"
-              required
             />
+            {server_error?.email ? (
+              <p className="form-field-error">{server_error.email[0]}</p>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="form-group">
@@ -42,20 +96,38 @@ const Signup = () => {
               id="password"
               name="password"
               placeholder="Enter your password"
-              required
             />
+            {server_error?.password ? (
+              <p className="form-field-error">{server_error.password[0]}</p>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="form-group">
             <label htmlFor="confirm-password">Confirm Password</label>
             <input
-              type="confirm-password"
+              type="password"
               id="confirm-password"
               name="confirm-password"
               placeholder="Enter your confirm password"
-              required
             />
+            {server_error?.confirm_password ? (
+              <p className="form-field-error">
+                {server_error.confirm_password[0]}
+              </p>
+            ) : (
+              ""
+            )}
           </div>
+          {server_error?.non_field_errors ? (
+            <p className="form-field-error">
+              {server_error.non_field_errors[0]}
+            </p>
+          ) : (
+            ""
+          )}
+
           <button type="submit" className="form-button">
             Signup
           </button>

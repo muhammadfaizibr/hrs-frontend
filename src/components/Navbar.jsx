@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom";
 import "../assets/css/NavbarStyles.css";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { unSetUserToken, setUserInfo } from "../features/userSlice";
+import { getToken,removeToken } from "../services/localStorageService";
 const routes = [
   { name: "Home", link: "/" },
   { name: "Hotels", link: "/listing-hotels" },
@@ -19,6 +22,17 @@ const Navbar = () => {
     setIsMobile(!isMobile);
   };
 
+  const dispatch = useDispatch()
+  const { access_token } = getToken()
+
+  const handleLogout = () =>{
+    removeToken()
+    dispatch(unSetUserToken({access_token: null}))
+    dispatch(setUserInfo({name: "", email: "", designation: ""}))
+    navigate('/')
+
+    
+  }
   useEffect(() => {
     if (isMobile) {
       document.body.style.overflow = 'hidden';  
@@ -65,7 +79,11 @@ const Navbar = () => {
                 
           <ul>
             
-            <li>
+            { access_token ?<> <button onClick={() => {handleNavigate("/add-place")}} className="parkinsans-sm-highlited-text primary-btn">
+                Add Place
+              </button><button onClick={handleLogout} className="parkinsans-sm-highlited-text tertiary-btn">
+                Logout
+              </button></> : <><li>
               <button onClick={() => {handleNavigate("/login")}} className="parkinsans-sm-highlited-text tertiary-btn">
                 Login
               </button>
@@ -74,7 +92,7 @@ const Navbar = () => {
               <button onClick={() => {handleNavigate("/signup")}} className="parkinsans-sm-highlited-text primary-btn">
                 Sign Up
               </button>
-            </li>
+            </li></> }
             <div className="burger" onClick={toggleMobileMenu}>
       <RxHamburgerMenu />
       </div>

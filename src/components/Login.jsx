@@ -1,12 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/FormStyles.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginUserMutation } from "../services/userAuthAPI";
+import { storeToken } from "../services/localStorageService";
+import { useDispatch } from "react-redux";
+import { setUserToken } from "../features/authSlice";
+import { getToken } from "../services/localStorageService";
+import verifyToken from "../features/verifyToken";
 
 const Login = () => {
-  const handleLogin = (e) => {
-    e.preventDefault();
-    alert("Login Successful!");
+  const [server_error, setServerError] = useState({});
+  const [generalError, setGeneralError] = useState();
+
+  let { access_token } = getToken();
+  const [loginUser, { isLoading }] = useLoginUserMutation();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    try {
+      setGeneralError("");
+      e.preventDefault();
+      const data = new FormData(e.currentTarget);
+      const actualData = {
+        email: data.get("email"),
+        password: data.get("password"),
+      };
+      const res = await loginUser(actualData);
+      if (res.error) {
+        setServerError(res.error.data.errors);
+      }
+      if (res.data) {
+        storeToken(res.data.token);
+        let { access_token } = getToken();
+        dispatch(setUserToken({ access_token: access_token }));
+        navigate("/");
+      }
+    } catch (error) {
+      setServerError({});
+      setGeneralError("An error occured, try again later!");
+    }
   };
+
+  
+  useEffect(() => {
+    dispatch(setUserToken({ access_token: access_token }));
+
+    const callVerifyToken = async () => {
+      if ((await verifyToken())){
+        navigate("/");
+      }}
+      callVerifyToken()
+  }, [access_token, dispatch]);
 
   return (
     <div className="form-container">
@@ -20,9 +66,11 @@ const Login = () => {
               id="email"
               name="email"
               placeholder="Enter your email"
-              required
+              
             />
+          {server_error?.email ? <p className="form-field-error">{server_error.email[0]}</p> : ""}
           </div>
+
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -30,9 +78,12 @@ const Login = () => {
               id="password"
               name="password"
               placeholder="Enter your password"
-              required
+              
             />
+            {server_error?.password ? <p className="form-field-error">{server_error.password[0]}</p> : ""}
           </div>
+          {server_error?.non_field_errors ? <p className="form-field-error">{server_error.non_field_errors[0]}</p> : ""}
+
           <button type="submit" className="form-button">
             Login
           </button>
