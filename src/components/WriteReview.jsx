@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import '../assets/css/WriteReviewStyles.css';
+import generateUniqueKey from "../features/uniqueKey";
 
 const WriteReview = () => {
   const [rating, setRating] = useState(0);
@@ -25,7 +26,7 @@ const WriteReview = () => {
           const starValue = i + 1;
           return (
             <FaStar
-              key={"stars"+i}
+              key={generateUniqueKey("write-a-reivew-star"+i)}
               className={`star ${starValue <= (hover || rating) ? "start-active" : ""}`}
               onClick={() => setRating(starValue)}
               onMouseEnter={() => setHover(starValue)}

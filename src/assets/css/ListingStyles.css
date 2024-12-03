@@ -51,7 +51,7 @@
         top: 0;
         left: 0;
         width: fit-content;
-        height: 100%;
+        height: fit-content;
         width: 400px;
         background-color: var(--white);
         z-index: 999;

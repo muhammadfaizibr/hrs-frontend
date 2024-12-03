@@ -14,24 +14,29 @@ const Listings = ({ choice }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get("query") || "";
-  console.log(searchQuery,'searchQuery')
+  const searchRating = searchParams.get("rating") || "";
+  const searchCity = searchParams.get("city") || "";
 
   const toggleMobileMenu = () => {
     setIsMobile(!isMobile);
   };
 
   const [query, setQuery] = useState(searchQuery);
+  const [filters, setFilters] = useState({
+    city: searchCity,
+    rating: searchRating
+  });
 
   useEffect(() => {
     setProgress(100);
    
   }, [location.search, setProgress])
-
+  
   return (
     <section className="listing-wrapper">
       <div className="listing-header">
         <h2>Discover {choice}.</h2>
-        <SearchBar query={query} setQuery={setQuery}/>
+        <SearchBar query={query} setQuery={setQuery} />
         
       </div>
       <button className="filters secondary-btn" onClick={toggleMobileMenu}>
@@ -40,13 +45,14 @@ const Listings = ({ choice }) => {
       <div className="listing-content">
 
         <div className={isMobile ? "toggle-sidebar mobile" : "toggle-sidebar"}>
-          <Sidebar />
+          <Sidebar filters={filters} setFilters={setFilters} />
         </div>
         <HotelsAndAttractions
           type="listing"
           heading="Top Hotels"
           subHeading="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptatum? Ducimus nostrum beatae placeat illo."
           query={query}
+          filters={filters}
         />
       </div>     
     </section>

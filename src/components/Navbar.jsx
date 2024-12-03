@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { unSetUserToken, setUserInfo } from "../features/userSlice";
 import { getToken,removeToken } from "../services/localStorageService";
+import generateUniqueKey from "../features/uniqueKey";
 const routes = [
   { name: "Home", link: "/" },
   { name: "Hotels", link: "/listing-hotels" },
@@ -66,7 +67,7 @@ const Navbar = () => {
           <ul className={isMobile ? 'nav-links mobile' : 'nav-links'}>
             {routes.map((e, i) => {
               return (
-                <li key={e.name+i}>
+                <li key={generateUniqueKey("nav-links"+e.name+i)}>
                   <button onClick={() => {handleNavigate(e.link)}}  className={`parkinsans-sm-highlited-text ${location.pathname === e.link ? 'active' : ''}`}>
                     {e.name}
                   </button >

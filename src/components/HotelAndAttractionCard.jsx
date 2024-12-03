@@ -4,9 +4,9 @@ import "../assets/css/HotelAndAttractionCardStyles.css";
 import PropTypes from "prop-types";
 import { FaStar } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
+import generateUniqueKey from "../features/uniqueKey";
 
-
-const Card = ({ imageSrc, productTitle, linkTo }) => {
+const Card = ({ imageSrc, productTitle, number_of_reviews, rating, linkTo }) => {
   return (
     <Link to={linkTo} className="card-anchor">
 
@@ -16,7 +16,7 @@ const Card = ({ imageSrc, productTitle, linkTo }) => {
       </div>
       <div className="card-footer">
         <p className="product-title">{productTitle}</p>
-        <p className="rating-reveiws"><FaStar/>4.1 <GoDotFill className="dot"/> 67 reviews</p>
+        <p className="rating-reveiws"><FaStar/>{rating} <GoDotFill className="dot"/> {number_of_reviews ? number_of_reviews : 'No'} reviews</p>
       </div>
     </div>
     </Link>

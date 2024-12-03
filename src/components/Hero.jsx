@@ -4,6 +4,7 @@ import { PiMountainsDuotone } from "react-icons/pi";
 import { LiaHotelSolid } from "react-icons/lia";
 import { GrSearch } from "react-icons/gr";
 import { useNavigate } from 'react-router-dom';
+import generateUniqueKey from '../features/uniqueKey';
 
 
 const options_to_serach = [
@@ -18,7 +19,7 @@ const Hero = () => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        if (searchQuery.trim()) {
+        if (searchQuery?.trim()) {
           navigate(`/listings?query=${encodeURIComponent(searchQuery)}`);
         }
       };
@@ -29,7 +30,7 @@ const Hero = () => {
         <div className="hero-action">
             <div className="selection-bar">
                 {options_to_serach.map((e, i) => {
-                    return <button key={e.name+i} className={`parkinsans-m-text ${e.name.toLowerCase() === selection ? 'active' : ''}`} onClick={() => {setSelection(e.name.toLowerCase())} }>{e.icon}{e.name}</button>
+                    return <button key={generateUniqueKey("btn-selection"+e.name+i)} className={`parkinsans-m-text ${e.name.toLowerCase() === selection ? 'active' : ''}`} onClick={() => {setSelection(e.name.toLowerCase())} }>{e.icon}{e.name}</button>
                 })}
             </div>
 

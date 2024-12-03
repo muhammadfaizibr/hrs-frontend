@@ -3,8 +3,7 @@ import "../assets/css/DetailsReviewsStyles.css";
 import { FaStar, FaRegStarHalfStroke, FaRegStar } from "react-icons/fa6";
 import Review from "./Review";
 import WriteReview from '../components/WriteReview';
-
-
+import generateUniqueKey from "../features/uniqueKey";
 
 const DetailsReviews = () => {
     const rating_number = 2.5;
@@ -21,14 +20,14 @@ const DetailsReviews = () => {
         <div className="ratings">
         <div className="rating-stars">
           {[...Array(parseInt(rating_number))].map((_, i) => {
-            return <FaStar key={"filled_stars" + i} />;
+            return <FaStar key={generateUniqueKey("filled_stars" + i)} />;
           })}
           {[...Array(rating_number % 1 !== 0)].map((_, i) => {
-            return <FaRegStarHalfStroke key={"halffilled_stars" + i} />;
+            return <FaRegStarHalfStroke key={generateUniqueKey("halffilled_stars" + i)} />;
           })}
 
           {[...Array(parseInt(5 - Math.ceil(rating_number)))].map((_, i) => {
-            return <FaRegStar key={"unfilled_stars" + i} />;
+            return <FaRegStar key={generateUniqueKey("unfilled_stars" + i)} />;
           })}
         </div>
         

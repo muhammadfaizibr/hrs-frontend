@@ -1,6 +1,7 @@
 import React from 'react';
 import '../assets/css/FeaturedCitiesStyles.css'
 import CityCard from './CityCard';
+import generateUniqueKey from '../features/uniqueKey';
 
 const cities = [
   {name: 'Karachi', url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Jinnah_Mausoleum_%28cropped%29.JPG/1600px-Jinnah_Mausoleum_%28cropped%29.JPG', link: '/details'},
@@ -18,7 +19,7 @@ const FeaturedCities = () => {
 
         <div className="cities">
         {cities.map((e, i) => {
-          return <CityCard key={"cities"+i}imageSrc={e.url} cityName={e.name} linkTo={e.link} />
+          return <CityCard key={generateUniqueKey("cities"+i)}imageSrc={e.url} cityName={e.name} linkTo={e.link} />
         })}
         </div>
     </section>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../assets/css/SearchBarStyles.css'
 import { GrSearch } from 'react-icons/gr';
-const SearchBar = ({query, setQuery}) => {
+const SearchBar = ({query, setQuery, }) => {
   return (
             <div className="search-bar listing-search-bar">
                 <input type="text" placeholder='Search on the go...' name='search' value={query}  onChange={(e) => setQuery(e.target.value)}/>

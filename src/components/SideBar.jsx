@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import "../assets/css/SideBarStyles.css";
+import generateUniqueKey from "../features/uniqueKey";
 
-const Sidebar = () => {
+const Sidebar = ({setFilters, filters}) => {
   const [sortOption, setSortOption] = useState("");
   // const [selectedCategory, setSelectedCategory] = useState("");
-  const [ratingThreshold, setRatingThreshold] = useState(0);
+  // const [rating, setRating] = useState(0);
+  // const [city, setCity] = useState("");
 
-  // const categories = ["Electronics", "Fashion", "Home", "Books", "All Categories"];
+  const cities = ["Karachi", "Lahore", "Islamabad"];
   const ratings = [5, 4, 3, 2, 1];
 
-  const handleFilterChange = () => {
+  const handleRatingChange = (rating) => {
+    setFilters({...filters, rating: rating})
+  };
+
+  const handleCityChange = (city) => {
+    setFilters({...filters, city: city})
   };
 
   return (
@@ -23,7 +30,7 @@ const Sidebar = () => {
           value={sortOption}
           onChange={(e) => {
             setSortOption(e.target.value);
-            handleFilterChange();
+            handleRatingChange();
           }}
         >
           <option value="">Select</option>
@@ -45,7 +52,7 @@ const Sidebar = () => {
               }`}
               onClick={() => {
                 setSelectedCategory(category === "All Categories" ? "" : category);
-                handleFilterChange();
+                handleRatingChange();
               }}
             >
               {category}
@@ -60,16 +67,37 @@ const Sidebar = () => {
         <div className="rating-buttons">
           {ratings.map((rating, i) => (
             <button
-              key={rating+i}
+              key={generateUniqueKey("side-bar-filter-rating"+rating+i)}
               className={`rating-button ${
-                ratingThreshold === rating ? "active" : ""
+                rating === parseInt(filters?.rating) ? "active" : ""
               }`}
+
+              
               onClick={() => {
-                setRatingThreshold(rating);
-                handleFilterChange();
+                setFilters({...filters, rating:rating});
+                handleRatingChange(rating);
               }}
             >
               {rating} Stars & Up
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="filter-group">
+        <h4>Cities</h4>
+        <div className="rating-buttons">
+          {cities.map((c, i) => (
+            <button
+              key={generateUniqueKey("side-bar-filter-city"+c+i)}
+              className={`rating-button ${
+                c === filters?.city ? "active" : ""
+              }`}
+              onClick={() => {
+                setFilters({...filters, city: c});
+                handleCityChange(c);
+              }}
+            >
+              {c}
             </button>
           ))}
         </div>

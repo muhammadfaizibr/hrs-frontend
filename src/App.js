@@ -19,7 +19,7 @@ function App() {
     setProgress(value);
     loaderRef.current?.continuousStart();
     if (value === 100) {
-      setTimeout(() => loaderRef.current.complete(), 500); 
+      setTimeout(() => loaderRef?.current?.complete(), 500); 
     }
   };
 

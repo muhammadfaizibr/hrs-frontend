@@ -1,7 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { getToken } from './localStorageService'
 
-const { access_token } = getToken()
 
 export const userAuthAPI = createApi({
   reducerPath: 'userAuthAPI',
@@ -45,7 +43,7 @@ export const userAuthAPI = createApi({
         getPlaces: builder.query({
             query: (data) =>{
                 return{
-                    url: `/place-list-create?query=${encodeURIComponent(data.query)}&page=${data.page}`,
+                    url: `/place-list-create?query=${encodeURIComponent(data.query)}&page=${data.page}&min_rating=${data.filters?.ratingThreshold ? data.filters?.ratingThreshold : ''}&city=${data.filters?.city ? data.filters?.city.toLocaleLowerCase() : ''}`,
                     method: 'GET',
                 }
             }

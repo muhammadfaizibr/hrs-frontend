@@ -6,6 +6,7 @@ import { setUserInfo, unSetUserToken } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import verifyToken from "../features/verifyToken";
 import { useDispatch } from "react-redux";
+import generateUniqueKey from "../features/uniqueKey";
 
 const place_type = [
   { name: "Hotels", type: "hotels" },
@@ -155,7 +156,7 @@ const AddNewPlace = () => {
             <label htmlFor="place-location">Type</label>
             <select value={placeType} onChange={handlePlaceTypeChange}>
               {place_type.map((e, i) => {
-                return <option key={e.name + i}>{e.name}</option>;
+                return <option key={generateUniqueKey("place_type"+e.name + i)}>{e.name}</option>;
               })}
             </select>
           </div>
