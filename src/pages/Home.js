@@ -23,6 +23,7 @@ const Home = () => {
   useEffect(() => {
    setProgress(100); 
   }, [setProgress]);
+  
   return (
     <React.Fragment>
       <Hero/>

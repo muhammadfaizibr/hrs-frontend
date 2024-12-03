@@ -1,4 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { getToken } from './localStorageService'
+
+const { access_token } = getToken()
 
 export const userAuthAPI = createApi({
   reducerPath: 'userAuthAPI',
@@ -39,7 +42,15 @@ export const userAuthAPI = createApi({
                 }
             }
         }),
+        getPlaces: builder.query({
+            query: (data) =>{
+                return{
+                    url: `/place-list-create?query=${encodeURIComponent(data.query)}&page=${data.page}`,
+                    method: 'GET',
+                }
+            }
+        }),
 
     }),
 })
-export const { useRegisterUserMutation, useLoginUserMutation, useGetLoggedUserQuery, useChangeUserPasswordMutation, useSendPasswordResetEmailMutation, useResetPasswordMutation, useUpdateProfileMutation, useVerifyEmailMutation, useCreateCompanyMutation, useCompanyDetailsQuery, useClosedQuestionsQuery, useRatingQuestionsQuery, useCreateReviewMutation, useVerifyAlreadyReveiwedMutation, useGetReviewsQuery, useCompanyCategoriesQuery, useConditionalClosedQuestionsQuery, useConditionalRatingQuestionsQuery } = userAuthAPI
+export const { useRegisterUserMutation, useLoginUserMutation, useGetLoggedUserQuery, useGetPlacesQuery } = userAuthAPI

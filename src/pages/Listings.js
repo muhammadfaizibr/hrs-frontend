@@ -6,38 +6,32 @@ import Sidebar from "../components/SideBar";
 import PropTypes from "prop-types";
 import { ProgressContext } from "../contexts/ProgressContext";
 import { CiFilter } from "react-icons/ci";
-
-const products = [
-  {name: 'Four Points by Sheraton Lahore', url: 'https://ak-d.tripcdn.com/images/0586z12000ev98nor2228_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Pearl Continental Hotel, Lahore', url: 'https://ak-d.tripcdn.com/images/220b13000000tsy6o384D_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Avari Xpress Gulberg', url: 'https://ak-d.tripcdn.com/images/0583612000chpr1t3EBD2_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Four Points by Sheraton Lahore', url: 'https://ak-d.tripcdn.com/images/0586z12000ev98nor2228_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Pearl Continental Hotel, Lahore', url: 'https://ak-d.tripcdn.com/images/220b13000000tsy6o384D_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Avari Xpress Gulberg', url: 'https://ak-d.tripcdn.com/images/0583612000chpr1t3EBD2_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Four Points by Sheraton Lahore', url: 'https://ak-d.tripcdn.com/images/0586z12000ev98nor2228_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Pearl Continental Hotel, Lahore', url: 'https://ak-d.tripcdn.com/images/220b13000000tsy6o384D_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Avari Xpress Gulberg', url: 'https://ak-d.tripcdn.com/images/0583612000chpr1t3EBD2_R_300_225_R5.jpg', link: '/details'},
-
-];
+import { useLocation } from "react-router-dom";
 
 const Listings = ({ choice }) => {
   const setProgress = useContext(ProgressContext);
   const [isMobile, setIsMobile] = useState(false);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const searchQuery = searchParams.get("query") || "";
+  console.log(searchQuery,'searchQuery')
 
   const toggleMobileMenu = () => {
     setIsMobile(!isMobile);
   };
 
-
+  const [query, setQuery] = useState(searchQuery);
 
   useEffect(() => {
     setProgress(100);
-  }, [setProgress]);
+   
+  }, [location.search, setProgress])
+
   return (
     <section className="listing-wrapper">
       <div className="listing-header">
         <h2>Discover {choice}.</h2>
-        <SearchBar />
+        <SearchBar query={query} setQuery={setQuery}/>
         
       </div>
       <button className="filters secondary-btn" onClick={toggleMobileMenu}>
@@ -52,9 +46,9 @@ const Listings = ({ choice }) => {
           type="listing"
           heading="Top Hotels"
           subHeading="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptatum? Ducimus nostrum beatae placeat illo."
-          products={products}
+          query={query}
         />
-      </div>
+      </div>     
     </section>
   );
 };
