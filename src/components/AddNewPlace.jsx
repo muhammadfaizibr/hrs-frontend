@@ -110,6 +110,8 @@ const AddNewPlace = () => {
           setServerError(res.errors);
           setIsLoading(false);
         } else if (!res.errors) {
+          navigate("/");
+
           setServerError({});
           setServerMsg(true);
           setIsLoading(false);

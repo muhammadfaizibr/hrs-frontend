@@ -1,80 +1,154 @@
 import React, { useEffect, useContext, useState } from "react";
 import DetailsHeader from "../components/DetailsHeader";
 import DetailsReviews from "../components/DetailsReviews";
-import Related from "../components/Related";
 import { ProgressContext } from "../contexts/ProgressContext";
 import { useParams } from "react-router-dom";
-import { useRetrievePlaceQuery, useGetReviewsQuery } from "../services/userAuthAPI";
+import {
+  useRetrievePlaceQuery,
+  useGetReviewsQuery,
+} from "../services/userAuthAPI";
+import HotelsAndAttractions from "../components/HotelsAndAttractions";
+import { fetchPlaces } from "../services/customFetchAPI";
 
 const Details = () => {
   const setProgress = useContext(ProgressContext);
   const { id } = useParams();
   const [item, setItem] = useState({});
   const [reviewsPage, setReviewsPage] = useState(1);
-  const [reviewSuccess, setReviewSuccess] = useState(false)
+  const [reviewSuccess, setReviewSuccess] = useState(false);
 
   const [reviews, setReviews] = useState({
     count: 0,
     next: null,
     previous: null,
     results: [],
-    loading: true,
   });
-
-
-  const { data, isFetching, isSuccess } = useRetrievePlaceQuery({ id });
+  const [filters, setFilters] = useState({
+    city: '',
+    place_type: '',
+    sort_by: "recommendations",
+    related:true
+  });
+  const query = "";
   const {
-    data: dataReviews,
+    data: placeData,
+    isFetching: isFetchingPlace,
+    isSuccess: isPlaceSuccess,
+  } = useRetrievePlaceQuery({ id });
+
+  const {
+    data: reviewsData,
     isFetching: isFetchingReviews,
-    isSuccess: isSuccessReviews,
+    isSuccess: isReviewsSuccess,
+    refetch: refetchReviews,
   } = useGetReviewsQuery({ place: id, page: reviewsPage });
 
-  // Update place details
   useEffect(() => {
-    if (isSuccess && data) {
-      setItem(data);
+    if (isPlaceSuccess && placeData) {
+      setItem(placeData);
+      setFilters({...filters, city: placeData.city, place_type: placeData.place_type})
     }
-  }, [data, isSuccess]);
+  }, [placeData, isPlaceSuccess]);
 
-  // Update reviews
   useEffect(() => {
-    if (isSuccessReviews && dataReviews) {
+    if (isReviewsSuccess && reviewsData) {
       setReviews((prevReviews) => {
         const uniqueResults = [
-          ...prevReviews.results,
-          ...dataReviews.results.filter(
-            (newItem) => !prevReviews.results.some((prevItem) => prevItem.id === newItem.id)
+          ...(reviewsPage === 1 || reviewSuccess ? [] : prevReviews.results),
+          ...reviewsData.results.filter(
+            (newItem) =>
+              !prevReviews.results.some(
+                (prevItem) => prevItem.id === newItem.id
+              )
           ),
         ];
         return {
-          ...dataReviews,
-          results: reviewsPage === 1 ? dataReviews.results : uniqueResults,
+          ...reviewsData,
+          results: uniqueResults,
         };
       });
     }
-  }, [dataReviews, isSuccessReviews, reviewsPage]);
-  
+  }, [reviewsData, isReviewsSuccess, reviewsPage, reviewSuccess]);
 
-  // Progress indication
+  useEffect(() => {
+    if (reviewSuccess) {
+      setReviewsPage(1);
+      refetchReviews();
+    }
+  }, [reviewSuccess, refetchReviews]);
+
+  const [page, setPage] = useState(1);
+  const [items, setItems] = useState({
+    count: 0,
+    next: null,
+    previous: null,
+    results: [],
+    isFetching: false,
+    isSuccess: false,
+  });
+
+  const callFetchPlaces = async ({
+    fetchedOrUpdatedQuery,
+    fetchedOrUpdatedFilters,
+    isPageConcat,
+  }) => {
+    setItems({ ...items, isSuccess: false, isFetching: true });
+
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const res = await fetchPlaces({
+      query: fetchedOrUpdatedQuery,
+      filters: fetchedOrUpdatedFilters,
+    });
+    setItems({
+      ...res,
+      isSuccess: true,
+      isFetching: false,
+      results: isPageConcat ? items.results.concat(res.results) : res.results,
+    });
+
+
+  };
+
+  useEffect(() => {
+    callFetchPlaces({ fetchedOrUpdatedQuery: query, fetchedOrUpdatedFilters: filters });
+  }, [filters]);
+
+
+
+
+
   useEffect(() => {
     setProgress(100);
   }, [setProgress]);
 
-  return isFetching ? (
+  return isFetchingPlace ? (
     <h2>Fetching Data...</h2>
-  ) : isSuccess && item ? (
+  ) : isPlaceSuccess && item ? (
     <section className="details">
       <DetailsHeader data={item} />
-      {isSuccessReviews && (
-        <DetailsReviews
-          data={item}
-          reviewsPage={reviewsPage}
-          setReviewsPage={setReviewsPage}
-          reviews={reviews}
-          isFetchingReviews={isFetchingReviews}
-        />
-      )}
-      {/* <Related data={item} /> */}
+      <DetailsReviews
+        data={item}
+        reviewsPage={reviewsPage}
+        setReviewsPage={setReviewsPage}
+        reviewSuccess={reviewSuccess}
+        reviews={reviews}
+        isFetchingReviews={isFetchingReviews}
+        setReviewSuccess={setReviewSuccess}
+      />
+
+      {/* <HotelsAndAttractions
+        type="listing"
+        heading="Top Hotels"
+        // query={query}
+        // filters={filters}
+        // setPage={setPage}
+        page={page}
+        setItems={setItems}
+        items={items}
+        related={true}
+      /> */}
+
+      
     </section>
   ) : (
     <h2>No Data</h2>

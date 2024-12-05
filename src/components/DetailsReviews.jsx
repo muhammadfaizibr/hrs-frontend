@@ -13,8 +13,10 @@ const DetailsReviews = (props) => {
   const { access_token } = getToken()
   const [userID, setUserID] = useState("")
   const [userCanReview, setUserCanReview] = useState(false);
-  const { data: loggedUserData, isSuccess: isLoggedUserSuccess } = useGetLoggedUserQuery(access_token);
-  const [reviewSuccess, setReviewSuccess] = useState(false)
+  const { data: loggedUserData, isSuccess: isLoggedUserSuccess } = useGetLoggedUserQuery(access_token, {
+    skip: !access_token,  
+  });
+  // const [reviewSuccess, setReviewSuccess] = useState(false)
   const {
     data: dataReviews,
     isFetching: isFetchingReviews,
@@ -22,7 +24,7 @@ const DetailsReviews = (props) => {
   } = useGetReviewsQuery(
     { user: userID, place: props.data.id },
     {
-      enabled: isLoggedUserSuccess && !!loggedUserData,
+      skip: !isLoggedUserSuccess,
     }
   );
 
@@ -36,7 +38,6 @@ const DetailsReviews = (props) => {
 
   useEffect(() => {
     if (isSuccessReviews && !!dataReviews){
-      console.log((dataReviews.results.length === 0))
       setUserCanReview((dataReviews.results.length === 0) ? true : false)
     }
   }, [dataReviews, isSuccessReviews]);
@@ -70,11 +71,11 @@ const DetailsReviews = (props) => {
               </div>
             )}
             <div className="rating-annotates">
-              <p className="total-ratings">Total Reviews: {props.reviews.count}</p>
+              <p className="total-ratings">Total Reviews: {props?.reviews?.count}</p>
             </div>
           </div>
         </div>
-        {userCanReview && !reviewSuccess ? <WriteReview user={userID} place={props.data.id} setReviewSuccess={setReviewSuccess}/> : ""}
+        {userCanReview && !props.reviewSuccess ? <WriteReview user={userID} place={props.data.id} setReviewSuccess={props.setReviewSuccess}/> : ""}
       </div>
 
       <InfiniteScroll

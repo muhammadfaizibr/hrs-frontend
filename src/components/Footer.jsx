@@ -9,11 +9,12 @@ const Footer = () => {
         <div className="footer-column">
           <div className="footer-logo">
             <img
-              src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_lockup_horizontal_secondary_registered.svg"
+              src="/footer-logo.png"
               alt="Logo"
               className="footer-logo-img"
+              style={{ marginBottom: 0}}
             />
-            <p>Your trusted partner for exceptional services.</p>
+            <h2 className="h2-light" style={{color: 'var(--primary)', fontSize: '2.6rem'}}>Travel Wise</h2>
           </div>
         </div>
         <div className="footer-column">
@@ -52,13 +53,13 @@ const Footer = () => {
         </div>
         <div className="footer-column">
           <h3 className="h3-light">Contact Us</h3>
-          <p>Email: contact@example.com</p>
+          <p>Email: contact@travelwise.com</p>
           <p>Phone: +123 456 7890</p>
           <p>Address: 123 Main Street, Anytown, USA</p>
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; 2024 Your Company. All rights reserved.</p>
+        <p>&copy; 2024 Travel Wise. All rights reserved.</p>
       </div>
     </footer>
   );

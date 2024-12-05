@@ -1,0 +1,45 @@
+.animated-paragraph {
+  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--dark-text);
+  line-height: 1.8;
+  background-color: var(--light-gray);
+  padding: 20px;
+  border-radius: 8px;
+  /* max-width: 80%; */
+  margin: 20px auto;
+  overflow: hidden;
+  /* text-align: center; */
+}
+
+.animated-paragraph span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease-out forwards;
+  color: var(--primary-color);
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .animated-paragraph {
+    font-size: 1.2rem;
+    max-width: 100%;
+    padding: 10px;
+  }
+}

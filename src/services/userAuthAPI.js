@@ -43,13 +43,13 @@ export const userAuthAPI = createApi({
         getPlaces: builder.query({
             query: (data) =>{
                 let url;
-                if (data.filters?.sortBy === "recommendations"){
-                    url = `/recommendations?query=${encodeURIComponent(data.query)}&city=${data.filters?.city ? data.filters?.city.toLocaleLowerCase() : ''}&place_type=${data.filters?.placeType ? data.filters?.placeType : ''}&subcategories=${data.filters?.subcategories ? data.filters?.subcategories : ''}&amenities=${data.filters?.amenities ? data.filters?.amenities : ''}`
-                    // url = `place-list-create?query=${encodeURIComponent(data.query)}&page=${data.page}&min_rating=${data.filters?.rating ? data.filters?.rating : ''}&city=${data.filters?.city ? data.filters?.city.toLocaleLowerCase() : ''}&place_type=${data.filters?.placeType ? data.filters?.placeType : ''}&subcategories=${data.filters?.subcategories ? data.filters?.subcategories : ''}&number_of_reviews=${data.filters?.noOfReviews ? data.filters?.noOfReviews : ''}&combined_amenities=${data.filters?.amenities ? data.filters?.amenities : ''}`
+                if (data.filters?.sort_by === "recommendations"){
+                    url = `/recommendations?query=${encodeURIComponent(data.query)}&city=${data.filters?.city ? data.filters?.city.toLocaleLowerCase() : ''}&place_type=${data.filters?.place_type ? data.filters?.place_type : ''}&subcategories=${data.filters?.subcategories ? data.filters?.subcategories : ''}&amenities=${data.filters?.amenities ? data.filters?.amenities : ''}`
+                    // url = `place-list-create?query=${encodeURIComponent(data.query)}&page=${data.page}&min_rating=${data.filters?.rating ? data.filters?.rating : ''}&city=${data.filters?.city ? data.filters?.city.toLocaleLowerCase() : ''}&place_type=${data.filters?.place_type ? data.filters?.place_type : ''}&subcategories=${data.filters?.subcategories ? data.filters?.subcategories : ''}&number_of_reviews=${data.filters?.noOfReviews ? data.filters?.noOfReviews : ''}&combined_amenities=${data.filters?.amenities ? data.filters?.amenities : ''}`
                 }
 
                 else{
-                    url = `place-list-create?page=${data.page}&min_rating=${data.filters?.rating ? data.filters?.rating : ''}&city=${data.filters?.city ? data.filters?.city.toLocaleLowerCase() : ''}&place_type=${data.filters?.placeType ? data.filters?.placeType : ''}`
+                    url = `place-list-create?page=${data.page}&min_rating=${data.filters?.rating ? data.filters?.rating : ''}&city=${data.filters?.city ? data.filters?.city.toLocaleLowerCase() : ''}&place_type=${data.filters?.place_type ? data.filters?.place_type : ''}`
                 }
                 return{
                     url: url,

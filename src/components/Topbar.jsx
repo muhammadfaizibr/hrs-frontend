@@ -16,7 +16,7 @@ const Topbar = () => {
           </div>
 
           <div className="content-group">
-          <p className='parkinsans-sm-text-light'><IoIosMail/>contact@domain.com</p>
+          <p className='parkinsans-sm-text-light'><IoIosMail/>contact@travelwise.com</p>
 </div>
 
         </div>

@@ -1,9 +1,10 @@
 import React, { useEffect, useContext } from 'react'
-import WeatherDetailsCard from '../components/WeatherDetailsCard'
+// import WeatherDetailsCard from '../components/WeatherDetailsCard'
+import Weather from '../components/Weather'
 import '../assets/css/WeatherStyles.css'
 import { ProgressContext } from '../contexts/ProgressContext'
 
-const Weather = () => {
+const WeatherPage = () => {
   const setProgress = useContext(ProgressContext);
 
   useEffect(() => {
@@ -12,14 +13,16 @@ const Weather = () => {
 
   return (
     <section className='weather'>
-        <h2>Weather Updates</h2>
-        <div className='weather-details-wrapper'>
-        <WeatherDetailsCard/>
-        <WeatherDetailsCard/>
-        <WeatherDetailsCard/>
-        </div>
+      <Weather/>
+        {/* <h2>Weather Updates</h2> */}
+        {/* <div className='weather-details-wrapper'> */}
+
+        {/* <WeatherDetailsCard/> */}
+        {/* <WeatherDetailsCard/> */}
+        {/* <WeatherDetailsCard/> */}
+        {/* // </div> */}
     </section>
   )
 }
 
-export default Weather
+export default WeatherPage

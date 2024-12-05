@@ -4,16 +4,13 @@ import '../assets/css/WriteReviewStyles.css';
 import generateUniqueKey from "../features/uniqueKey";
 import { useSubmitReviewMutation } from "../services/userAuthAPI";
 
-
-const WriteReview = (props) => {
+const WriteReview = ({ user, place, setReviewSuccess }) => {
   const [server_error, setServerError] = useState({});
-  const [generalError, setGeneralError] = useState();
+  const [generalError, setGeneralError] = useState("");
 
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(null);
   const [review, setReview] = useState("");
-
-
 
   const [submitReview, { isLoading }] = useSubmitReviewMutation();
 
@@ -24,19 +21,19 @@ const WriteReview = (props) => {
       const actualData = {
         review_text: review,
         rating: rating,
-        user: props.user,
-        place: props.place,
+        user: user,
+        place: place,
       };
       const res = await submitReview(actualData);
       if (res.error) {
         setServerError(res.error.data.errors);
       }
       if (res.data) {
-        props.setReviewSuccess(true)
+        setReviewSuccess(true);
       }
     } catch (error) {
       setServerError({});
-      setGeneralError("An error occured, try again later!");
+      setGeneralError("An error occurred, try again later!");
     }
   };
 
@@ -48,7 +45,7 @@ const WriteReview = (props) => {
           const starValue = i + 1;
           return (
             <FaStar
-              key={generateUniqueKey("write-a-reivew-star"+i)}
+              key={generateUniqueKey("write-a-reivew-star" + i)}
               className={`star ${starValue <= (hover || rating) ? "start-active" : ""}`}
               onClick={() => setRating(starValue)}
               onMouseEnter={() => setHover(starValue)}
@@ -59,17 +56,17 @@ const WriteReview = (props) => {
       </div>
 
       <div className="write-review">
-        
-      <textarea
-        value={review}
-        onChange={(e) => setReview(e.target.value)}
-        placeholder="Write your review here..."
-        rows={1}
-      />
-      <button disabled={!review} className="primary-btn-sm" onClick={handleSubmit}>Submit</button>
-    
+        <textarea
+          value={review}
+          onChange={(e) => setReview(e.target.value)}
+          placeholder="Write your review here..."
+          rows={3}
+        />
+        <button disabled={!review} className="primary-btn-sm" onClick={handleSubmit}>
+          Submit
+        </button>
       </div>
-      </div>
+    </div>
   );
 };
 

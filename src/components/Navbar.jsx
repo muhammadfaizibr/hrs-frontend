@@ -58,7 +58,7 @@ const Navbar = () => {
         <div className="group">
           <div className="logo">
             <img
-              src="https://static.tacdn.com/img2/brand_refresh/Tripadvisor_lockup_horizontal_secondary_registered.svg"
+              src="/logo.jpg"
               alt=""
             />
           </div>
