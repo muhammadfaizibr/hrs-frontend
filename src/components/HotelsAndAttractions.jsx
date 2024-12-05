@@ -7,21 +7,14 @@ import { useGetPlacesQuery } from "../services/userAuthAPI";
 import InfiniteScroll from "react-infinite-scroll-component";
 import generateUniqueKey from "../features/uniqueKey";
 
-const HotelsAndAttractions = ({
-  type,
-  heading,
-  subHeading,
-  query,
-  filters,
-}) => {
-  const [page, setPage] = useState(1);
+const HotelsAndAttractions = (props) => {
 
-  const [items, setItems] = useState({
-    count: 0,
-    next: null,
-    previous: null,
-    results: [],
-  });
+  const query = props?.query
+  const filters = props?.filters
+  const page = props?.page
+  const items = props?.items
+  const setItems = props?.setItems ? props?.setItems : () => {}
+  const setPage = props?.setPage ? props?.setPage : () => {}
 
   const { data, isFetching, isSuccess } = useGetPlacesQuery(
     { query, page, filters },
@@ -29,11 +22,13 @@ const HotelsAndAttractions = ({
   );
 
   useEffect(() => {
+
     if (isSuccess && data) {
       setItems((prevItems) => ({
         count: data.count,
         next: data.next,
         previous: data.previous,
+        loading: false,
         results:
           page === 1 ? data.results : [...prevItems.results, ...data.results],
       }));
@@ -41,16 +36,15 @@ const HotelsAndAttractions = ({
   }, [data, isSuccess, page]);
 
   useEffect(() => {
-    if (query?.trim() !== "") {
       setPage(1);
       setItems({
         count: 0,
         next: null,
         previous: null,
         results: [],
+        loading: false
       });
-    }
-  }, [query, filters]);
+  }, [filters]);
 
   const fetchNextPage = () => {
     if (!isFetching && items.next) {
@@ -60,10 +54,10 @@ const HotelsAndAttractions = ({
 
   return (
     <section className="featured-cards">
-      {type !== "listing" && (
+      {props?.type !== "listing" && (
         <div className="content">
-          <h2>{heading}</h2>
-          <p>{subHeading}</p>
+          <h2>{props?.heading}</h2>
+          <p>{props?.subHeading}</p>
         </div>
       )}
       {isSuccess ? (
@@ -72,7 +66,6 @@ const HotelsAndAttractions = ({
           next={fetchNextPage}
           hasMore={!!items.next}
           loader={<h4>Loading...</h4>}
-          endMessage={<p>No more items!</p>}
         >
           <div className="cards">
             {items.results.map((e, i) => {
@@ -85,7 +78,7 @@ const HotelsAndAttractions = ({
                   productTitle={e.name}
                   noOfReviews={e.number_of_reviews}
                   rating={e.rating}
-                  linkTo="/details"
+                  linkTo={`/details/${e.id}`}
                 />
               );
             })}
@@ -94,7 +87,7 @@ const HotelsAndAttractions = ({
       ) : (
         <p>{isFetching ? "Loading..." : "No data available!"}</p>
       )}
-      {type !== "listing" && (
+      {props?.type !== "listing" && (
         <button className="tertiary-btn">
           View More <FiArrowRight />
         </button>

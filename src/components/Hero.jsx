@@ -8,19 +8,21 @@ import generateUniqueKey from '../features/uniqueKey';
 
 
 const options_to_serach = [
-    {name: "Hotels", icon: <LiaHotelSolid />},
-    {name: "Attractions", icon: <PiMountainsDuotone/>}
+    {name: "Hotel", icon: <LiaHotelSolid />},
+    {name: "Attraction", icon: <PiMountainsDuotone/>}
 ]
 
 const Hero = () => {
     const navigate  = useNavigate()
     const [searchQuery, setSearchQuery] = useState('');
     const [selection, setSelection] = useState(options_to_serach[0].name.toLocaleLowerCase());
+    const cities = ['Karachi', 'Islamabad', 'Lahore']
+    const [city, setCity] = useState(cities[0])
 
     const handleSearch = (e) => {
         e.preventDefault();
         if (searchQuery?.trim()) {
-          navigate(`/listings?query=${encodeURIComponent(searchQuery)}`);
+          navigate(`/listings?query=${encodeURIComponent(searchQuery)}&place_type=${selection}&city=${city}&sort_by=recommendations`);
         }
       };
   return (
@@ -36,6 +38,10 @@ const Hero = () => {
 
             <div className="search-bar">
                 <input type="text" placeholder='Search on the go...' name='search' value={searchQuery}  onChange={(e) => setSearchQuery(e.target.value)}/>
+
+                {cities.map((e, i) => {
+                    return <button key={generateUniqueKey("search-btn-selection"+e+i)}  onClick={() => setCity(e)} className={`parkinsans-m-text ${e===city ? 'primary' : 'secondary'}-btn`}>{e}</button>
+                })}
                 <button disabled={!searchQuery} onClick={handleSearch} className='parkinsans-m-text primary-btn'><GrSearch/>Search</button>
             </div>
         </div>

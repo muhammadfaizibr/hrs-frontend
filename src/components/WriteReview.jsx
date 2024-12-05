@@ -2,19 +2,41 @@ import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import '../assets/css/WriteReviewStyles.css';
 import generateUniqueKey from "../features/uniqueKey";
+import { useSubmitReviewMutation } from "../services/userAuthAPI";
 
-const WriteReview = () => {
+
+const WriteReview = (props) => {
+  const [server_error, setServerError] = useState({});
+  const [generalError, setGeneralError] = useState();
+
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(null);
   const [review, setReview] = useState("");
 
-  const handleSubmit = () => {
-    if (rating && review) {
-      alert(`Thank you for your review!\nRating: ${rating}\nReview: ${review}`);
-      setRating(0);
-      setReview("");
-    } else {
-      alert("Please provide both a rating and a review.");
+
+
+  const [submitReview, { isLoading }] = useSubmitReviewMutation();
+
+  const handleSubmit = async (e) => {
+    try {
+      setGeneralError("");
+      e.preventDefault();
+      const actualData = {
+        review_text: review,
+        rating: rating,
+        user: props.user,
+        place: props.place,
+      };
+      const res = await submitReview(actualData);
+      if (res.error) {
+        setServerError(res.error.data.errors);
+      }
+      if (res.data) {
+        props.setReviewSuccess(true)
+      }
+    } catch (error) {
+      setServerError({});
+      setGeneralError("An error occured, try again later!");
     }
   };
 

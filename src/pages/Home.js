@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import Hero from '../components/Hero'
 import FeaturedCities from '../components/FeaturedCities'
 import HotelsAndAttractions from '../components/HotelsAndAttractions'
@@ -30,8 +30,8 @@ const Home = () => {
       <section className='home-content-wrapper'>
 
         <FeaturedCities />
-        <HotelsAndAttractions type="featured"  heading="Top Hotels" subHeading="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptatum? Ducimus nostrum beatae placeat illo." products={products} />
-        <HotelsAndAttractions type="featured"  heading="Top Attractions" subHeading="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptatum? Ducimus nostrum beatae placeat illo." products={products} />
+        <HotelsAndAttractions type="featured" heading="Top Hotels" subHeading="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptatum? Ducimus nostrum beatae placeat illo." products={products} />
+        <HotelsAndAttractions type="featured" heading="Top Attractions" subHeading="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptatum? Ducimus nostrum beatae placeat illo." products={products} />
       </section>
     </React.Fragment>
   )

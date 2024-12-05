@@ -12,49 +12,118 @@ const Listings = ({ choice }) => {
   const setProgress = useContext(ProgressContext);
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const searchQuery = searchParams.get("query") || "";
-  const searchRating = searchParams.get("rating") || "";
-  const searchCity = searchParams.get("city") || "";
 
+  
+  const [page, setPage] = useState(1);
+  const [items, setItems] = useState({
+    count: 0,
+    next: null,
+    previous: null,
+    results: [],
+    loading: true,
+  });
+  const [query, setQuery] = useState("");
+  const [filters, setFilters] = useState({
+    city: "",
+    rating: "",
+    placeType: "",
+    amenities: "",
+    subcategories: "",
+    sortBy: "",
+  });
+
+  
   const toggleMobileMenu = () => {
     setIsMobile(!isMobile);
   };
 
-  const [query, setQuery] = useState(searchQuery);
-  const [filters, setFilters] = useState({
-    city: searchCity,
-    rating: searchRating
-  });
+  
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+
+    setQuery(searchParams.get("query") || "");
+    setFilters({
+      city: searchParams.get("city") || "",
+      rating: searchParams.get("rating") || "",
+      placeType: searchParams.get("placetype") || "",
+      amenities: searchParams.get("amenities") || "",
+      subcategories: searchParams.get("subcategories") || "",
+      sortBy: searchParams.get("sort_by") || "",
+    });
+
+    
+    setPage(1);
+    setItems({
+      count: 0,
+      next: null,
+      previous: null,
+      results: [],
+      loading: true,
+    });
+  }, [location.search]);
+
+  
+  const handleSearch = () => {
+    const searchParams = new URLSearchParams(location.search);
+
+    searchParams.set("query", query);
+    searchParams.set("city", filters.city);
+    searchParams.set("rating", filters.rating);
+    searchParams.set("placetype", filters.placeType);
+    searchParams.set("amenities", filters.amenities);
+    searchParams.set("subcategories", filters.subcategories);
+    searchParams.set("sort_by", filters.sortBy);
+
+    const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
+    window.history.replaceState(null, "", newUrl);
+
+    
+    setPage(1);
+    setItems({
+      count: 0,
+      next: null,
+      previous: null,
+      results: [],
+      loading: true,
+    });
+  };
 
   useEffect(() => {
     setProgress(100);
-   
-  }, [location.search, setProgress])
-  
+  }, [setProgress]);
+
   return (
     <section className="listing-wrapper">
       <div className="listing-header">
-        <h2>Discover {choice}.</h2>
-        <SearchBar query={query} setQuery={setQuery} />
-        
+        <h2>
+          Discover {filters.placeType ? filters.placeType + "s" : "Hotels & Attractions"}
+        </h2>
+        <SearchBar
+          query={query}
+          setQuery={setQuery}
+          items={items}
+          handleSearch={handleSearch}
+        />
       </div>
       <button className="filters secondary-btn" onClick={toggleMobileMenu}>
-          <CiFilter /> All Filters
-        </button>
+        <CiFilter /> All Filters
+      </button>
       <div className="listing-content">
-
         <div className={isMobile ? "toggle-sidebar mobile" : "toggle-sidebar"}>
-          <Sidebar filters={filters} setFilters={setFilters} />
+          <Sidebar setQuery={setQuery} filters={filters} setFilters={setFilters} />
         </div>
         <HotelsAndAttractions
           type="listing"
           heading="Top Hotels"
-          subHeading="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptatum? Ducimus nostrum beatae placeat illo."
+          subHeading="Explore the best options available in your desired category."
           query={query}
           filters={filters}
+          setPage={setPage}
+          setItems={setItems}
+          items={items}
+          page={page}
         />
-      </div>     
+      </div>
     </section>
   );
 };

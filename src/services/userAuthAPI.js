@@ -42,13 +42,53 @@ export const userAuthAPI = createApi({
         }),
         getPlaces: builder.query({
             query: (data) =>{
+                let url;
+                if (data.filters?.sortBy === "recommendations"){
+                    url = `/recommendations?query=${encodeURIComponent(data.query)}&city=${data.filters?.city ? data.filters?.city.toLocaleLowerCase() : ''}&place_type=${data.filters?.placeType ? data.filters?.placeType : ''}&subcategories=${data.filters?.subcategories ? data.filters?.subcategories : ''}&amenities=${data.filters?.amenities ? data.filters?.amenities : ''}`
+                    // url = `place-list-create?query=${encodeURIComponent(data.query)}&page=${data.page}&min_rating=${data.filters?.rating ? data.filters?.rating : ''}&city=${data.filters?.city ? data.filters?.city.toLocaleLowerCase() : ''}&place_type=${data.filters?.placeType ? data.filters?.placeType : ''}&subcategories=${data.filters?.subcategories ? data.filters?.subcategories : ''}&number_of_reviews=${data.filters?.noOfReviews ? data.filters?.noOfReviews : ''}&combined_amenities=${data.filters?.amenities ? data.filters?.amenities : ''}`
+                }
+
+                else{
+                    url = `place-list-create?page=${data.page}&min_rating=${data.filters?.rating ? data.filters?.rating : ''}&city=${data.filters?.city ? data.filters?.city.toLocaleLowerCase() : ''}&place_type=${data.filters?.placeType ? data.filters?.placeType : ''}`
+                }
                 return{
-                    url: `/place-list-create?query=${encodeURIComponent(data.query)}&page=${data.page}&min_rating=${data.filters?.ratingThreshold ? data.filters?.ratingThreshold : ''}&city=${data.filters?.city ? data.filters?.city.toLocaleLowerCase() : ''}`,
+                    url: url,
                     method: 'GET',
+                }
+            }
+        }),
+        retrievePlace: builder.query({
+            query: (data) =>{
+                return{
+                    url: `place-retrieve-update-destroy/${data.id}`,
+                    method: 'GET',
+                }
+            }
+        }),
+        getReviews: builder.query({
+            query: (data) =>{
+                return{
+                    url: `review-list/?user=${data.user ? data.user : ''}&place=${data.place ? data.place : ''}&page=${data.page ? data.page : ''}`,
+                    method: 'GET',
+                }
+            }
+        }),
+
+        submitReview: builder.mutation({
+            query: (user) =>{
+                return{
+                    url: 'review-create/',
+                    method: 'POST',
+                    body: user,
+                    header: {
+                        'Content-type': 'application/json',
+                    }
                 }
             }
         }),
 
     }),
 })
-export const { useRegisterUserMutation, useLoginUserMutation, useGetLoggedUserQuery, useGetPlacesQuery } = userAuthAPI
+
+
+export const { useRegisterUserMutation, useLoginUserMutation, useGetLoggedUserQuery, useGetPlacesQuery, useRetrievePlaceQuery, useGetReviewsQuery, useSubmitReviewMutation } = userAuthAPI

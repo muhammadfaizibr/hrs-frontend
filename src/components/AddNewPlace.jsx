@@ -9,12 +9,20 @@ import { useDispatch } from "react-redux";
 import generateUniqueKey from "../features/uniqueKey";
 
 const place_type = [
-  { name: "Hotels", type: "hotels" },
-  { name: "Attractions", type: "attractions" },
+  { name: "Hotel", type: "hotel" },
+  { name: "Attraction", type: "attraction" },
+];
+
+
+const cities = [
+  { name: "Karachi", type: "karachi" },
+  { name: "Islamabad", type: "islamabad" },
+  { name: "lahore", type: "lahore" },
 ];
 
 const AddNewPlace = () => {
   const [placeType, setPlaceType] = useState(place_type[0].name);
+  const [city, setCity] = useState(place_type[0].name);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,8 +69,10 @@ const AddNewPlace = () => {
       const { access_token } = getToken();
 
       const data = new FormData(e.currentTarget);
-      data.append("place_name", data.get("place-name"));
-      data.append("place_location", data.get("place-location"));
+      data.append("name", data.get("place-name"));
+      data.append("location", data.get("place-location"));
+      data.append("city", city);
+      data.append("place_type", placeType.toLocaleLowerCase());
 
       if (hotelImage?.uri) {
         const fileName = hotelImage.uri.split("/").pop();
@@ -77,11 +87,11 @@ const AddNewPlace = () => {
       }
 
       data.append("user", userProData.id);
-      const re = await fetch("http://127.0.0.1:8000/api/companies/", {
+      const re = await fetch("http://127.0.0.1:8000/api/place-list-create/", {
         body: data,
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          // 'Content-Type': 'application/json',
           Authorization: "Bearer " + access_token,
         },
       });
@@ -104,14 +114,7 @@ const AddNewPlace = () => {
           setServerMsg(true);
           setIsLoading(false);
 
-          setTimeout(() => {
-            navigate( 
-              "/companies/company-details/" +
-                res.company_id +
-                "/" +
-                res.company_name.replace(/ /g, "-")
-            );
-          }, 700);
+
         }
       }
     } catch (error) {
@@ -123,7 +126,11 @@ const AddNewPlace = () => {
   };
 
   const handlePlaceTypeChange = (event) => {
-    setPlaceType(event.target.value);
+    setPlaceType(event.target.value.toLocaleLowerCase());
+  };
+
+  const handleCity = (event) => {
+    setCity(event.target.value.toLocaleLowerCase());
   };
   
   return (
@@ -133,6 +140,8 @@ const AddNewPlace = () => {
         <form onSubmit={handleAddNewPlace}>
           <div className="form-group">
             <label htmlFor="place-name">Place Name</label>
+
+
             <input
               type="text"
               id="place-name"
@@ -140,8 +149,11 @@ const AddNewPlace = () => {
               placeholder="What's the place name?"
               
             />
+          {server_error?.name ? <p className="form-field-error">{server_error.name[0]}</p> : ""}
+
           </div>
           <div className="form-group">
+
             <label htmlFor="place-location">Location</label>
             <input
               type="text"
@@ -150,6 +162,20 @@ const AddNewPlace = () => {
               placeholder="Where it is?"
               
             />
+                      {server_error?.location ? <p className="form-field-error">{server_error.location[0]}</p> : ""}
+
+          </div>
+
+
+          <div className="form-group">
+            <label htmlFor="place-location">City</label>
+            <select value={city} onChange={handleCity}>
+              {cities.map((e, i) => {
+                return <option key={generateUniqueKey("place_type"+e.name + i)}>{e.name}</option>;
+              })}
+            </select>
+            {server_error?.city ? <p className="form-field-error">{server_error.city[0]}</p> : ""}
+
           </div>
 
           <div className="form-group">
@@ -159,10 +185,12 @@ const AddNewPlace = () => {
                 return <option key={generateUniqueKey("place_type"+e.name + i)}>{e.name}</option>;
               })}
             </select>
+            {server_error?.place_type ? <p className="form-field-error">{server_error.place_type[0]}</p> : ""}
+
           </div>
 
           <div className="form-group">
-            <label htmlFor="place-location">Contact</label>
+            <label htmlFor="place-location">Phone</label>
             <input
               type="text"
               id="place-contact"
@@ -170,12 +198,16 @@ const AddNewPlace = () => {
               placeholder="Email or Phone"
               
             />
+                        {server_error?.phone ? <p className="form-field-error">{server_error.phone[0]}</p> : ""}
+
           </div>
 
           <div className="form-group">
             <label htmlFor="place-location">Picutres</label>
             <input type="file" accept='image/*' name="place-image" onChange={handleImage} />
           </div>
+          {server_error?.non_field_errors ? <p className="form-field-error">{server_error.non_field_errors[0]}</p> : ""}
+
           <button type="submit" className="form-button">
             Add Place
           </button>

@@ -2,21 +2,24 @@ import React from 'react'
 import '../assets/css/ReviewStyles.css';
 import { FaStar } from "react-icons/fa6";
 import generateUniqueKey from '../features/uniqueKey';
+import formattedDate from '../features/formatDate';
 
-const Review = () => {
-    const rating_number = 4.5;
+const Review = (props) => {
+    const rating_number = props.data.rating.toFixed(1);
+    const initials = props.data.user.username.split(' ').slice(0, 2).map(word => word[0].toUpperCase()).join('');
+
   return (
     <div className="review">
         <div className="name-logo">
-            AI
+            {initials}
         </div>
 
         <div className="review-content">
-            <p className="reviewer-name">Muhammad Ahmed</p>
+            <p className="reviewer-name">{props.data.user.username}</p>
             <p className="reviewer-ratings">{rating_number}<span>{[...Array(parseInt(rating_number))].map((_, i) => {
             return <FaStar key={generateUniqueKey("reviewer-rating-filled_stars" + i)} />;
-          })} </span></p>
-            <p className="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus atque assumenda incidunt facilis, facere, fugit vel inventore dignissimos, sapiente cum blanditiis nostrum voluptas? Sint quasi quisquam repellat harum odio distinctio voluptatum excepturi, aliquam, dolorem cum sed, facere sequi vel doloremque.</p>
+          })} </span><span style={{fontSize: '1.2rem'}}>{formattedDate(props.data.created_at)}</span> </p>
+            <p className="review-text">{props.data.review_text}</p>
         </div>
     </div>
   )

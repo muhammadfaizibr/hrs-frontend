@@ -4,30 +4,34 @@ import { FaStar } from 'react-icons/fa';
 import { GoDotFill } from 'react-icons/go';
 import { HiLocationMarker } from "react-icons/hi";
 import { IoIosMail,IoMdCall } from "react-icons/io";
+import generateUniqueKey from '../features/uniqueKey';
 
-const DetailsHeader = ({ productTitle, imageSrc}) => {
+const DetailsHeader = (props) => {
   return (
     <section className="details-header">
       <div className="header-details">
-        <h2 className="product-title">{productTitle}</h2>
-        <p className="rating-reveiws"><span><FaStar/>4.1 <GoDotFill className="dot"/> 67 reviews</span> <GoDotFill className="dot"/> <span> <HiLocationMarker/>1605 Broadway, New York City, NY 10019</span></p>
-        <p className="rating-reveiws"><span><IoIosMail/> contact@domain.com</span> <GoDotFill className="dot"/> <span><IoMdCall/>91 242 (995)</span></p>
+        <h2 className="product-title">{props.data.name}</h2>
+        <p className="rating-reveiws"><span><FaStar/>{props.data.rating} <GoDotFill className="dot"/> {props.data.number_of_reviews ? props.data.number_of_reviews : 'no'} reviews</span> <GoDotFill className="dot"/> <span> <HiLocationMarker/>{props.data.address ? props.data.address : props.data.location }</span></p>
+        <p className="rating-reveiws">{props.data.email ?<span><IoIosMail/> {props.data.email}</span> : ""} <GoDotFill className="dot"/>{props.data.phone ? <span><IoMdCall/>{props.data.phone}</span>: ""}</p>
 
-        <p className="product-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos cupiditate voluptate autem illum ipsum unde, atque omnis amet modi. Quidem in quaerat sapiente, autem cumque dolores provident sequi et omnis fugiat amet rerum placeat iusto. Numquam provident odio, ab quae aliquam sunt, repellat culpa ex sapiente neque a dolore deserunt nesciunt saepe. Odit vel sequi, deleniti possimus nulla dolorem error commodi culpa est quam accusantium esse reprehenderit obcaecati deserunt, iure atque eligendi doloribus ipsa modi aspernatur aperiam recusandae repellendus. Fugiat officia architecto nobis nam, error voluptatem inventore repudiandae esse dicta distinctio. Eveniet nobis at perspiciatis ipsum, est sint blanditiis officia?</p>
+        <p className="product-desc">{props.data.description}</p>
 
         <div className="product-amenities">
             <h3>Amenities</h3>
             <ul>
-                <li className="amenities">Free Wifi</li>
-                <li className="amenities">Cleaing Service</li>
-                <li className="amenities">Food</li>
-                <li className="amenities">Wheel Chair</li>
+            {props.data.place_type === "hotel" ? props.data.combined_amenities ? (props.data.combined_amenities.slice(1,-1).split(",")).map((e, i) => {
+              
+              return  <li key={generateUniqueKey("details-page-amenities" + e + i)}
+              className="amenities">{e.replace(/['"]/g, "")}</li>
+            }) : "" : ""
+
+              }
             </ul>
         </div>
       
       </div>
       <div className="featured-img">
-        <img src={imageSrc} alt={productTitle} className="card-image" />
+        <img src={props.data.image_url} alt={props.data.name} className="card-image" />
       </div>
     </section>
   )
