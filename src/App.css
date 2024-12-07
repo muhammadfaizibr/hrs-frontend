@@ -13,7 +13,8 @@ body {
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--white);
+  /* background-color: var(--white); */
+  background-color: #fff !important;
   /* background-color: #f7f9fd; */
 }
 code {

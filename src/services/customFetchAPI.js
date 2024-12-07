@@ -3,7 +3,6 @@ const baseUrl = "http://127.0.0.1:8000/api/"
 const fetchPlaces = async (data) => {
     try {
       let url;
-      console.log('data.filters?.sort_by',data.filters)
       
       if (data.filters?.sort_by === "collabrative-filtering") {
         url = `collabrative-recommendations/?user=${data.filters?.user ? data.filters?.user : ''}`
@@ -18,6 +17,7 @@ const fetchPlaces = async (data) => {
         }&type=${data.filters?.place_type || ""}`;
       }
       else  {
+        // url = `recommendations?query=${encodeURIComponent(data.query ? data.query : '')}&city=${
         url = `recommendations?query=${encodeURIComponent(data.query ? data.query : '')}&city=${
           data.filters?.city ? data.filters?.city.toLowerCase() : ""
         }&type=${

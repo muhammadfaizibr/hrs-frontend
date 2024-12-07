@@ -1,6 +1,8 @@
 /* Sidebar styles */
 .sidebar {
     max-width: 480px;
+    min-width: 480px;
+    width: 480px;
     /* height: 100vh; */
     overflow-y: auto;
     display: flex;

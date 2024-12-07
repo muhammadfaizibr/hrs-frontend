@@ -38,7 +38,7 @@ const DetailsReviews = (props) => {
 
   useEffect(() => {
     if (isSuccessReviews && !!dataReviews){
-      setUserCanReview((dataReviews.results.length === 0) ? true : false)
+      setUserCanReview((dataReviews?.results?.length === 0) ? true : false)
     }
   }, [dataReviews, isSuccessReviews]);
 
@@ -56,10 +56,10 @@ const DetailsReviews = (props) => {
       <div className="ratings-and-write-review-combined">
         <div className="overall-ratings">
           <h1>{rating_number}</h1>
-          <div className="ratings">
+          {rating_number ? <div className="ratings">
             {rating_number && (
               <div className="rating-stars">
-                {[...Array(Math.floor(rating_number))].map((_, i) => (
+                {/* {[...Array(Math.floor(rating_number))].map((_, i) => (
                   <FaStar key={generateUniqueKey(`filled_star_${i}`)} />
                 ))}
                 {rating_number % 1 !== 0 && (
@@ -67,30 +67,33 @@ const DetailsReviews = (props) => {
                 )}
                 {[...Array(5 - Math.ceil(rating_number))].map((_, i) => (
                   <FaRegStar key={generateUniqueKey(`empty_star_${i}`)} />
+                ))} */}
+                {[1,2,3,4,5].map((e, i) => (
+                 <FaRegStar key={generateUniqueKey(`empty_star_${i}`)} />
                 ))}
               </div>
             )}
             <div className="rating-annotates">
               <p className="total-ratings">Total Reviews: {props?.reviews?.count}</p>
             </div>
-          </div>
+          </div> : "No Rating Data"}
         </div>
         {userCanReview && !props.reviewSuccess ? <WriteReview user={userID} place={props.data.id} setReviewSuccess={props.setReviewSuccess}/> : ""}
       </div>
 
-      <InfiniteScroll
-        dataLength={props.reviews.results.length}
+      {/* <InfiniteScroll */}
+        {/* dataLength={props?.reviews?.results?.length}
         next={fetchNextPage}
-        hasMore={!!props.reviews.next}
+        hasMore={!!props?.reviews?.next}
         loader={<h4>Loading...</h4>}
-      >
-        {props.reviews.results.map((item, i) => (
+      > */}
+        {props?.reviews?.results?.map((item, i) => (
           <Review
             key={generateUniqueKey(`review_${item.id}_${i}`)}
             data={item}
           />
         ))}
-      </InfiniteScroll>
+      {/* </InfiniteScroll> */}
     </div>
   );
 };

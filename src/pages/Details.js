@@ -136,7 +136,7 @@ const Details = () => {
         setReviewSuccess={setReviewSuccess}
       />
 
-      {/* <HotelsAndAttractions
+      <HotelsAndAttractions
         type="listing"
         heading="Top Hotels"
         // query={query}
@@ -146,7 +146,7 @@ const Details = () => {
         setItems={setItems}
         items={items}
         related={true}
-      /> */}
+      />
 
       
     </section>

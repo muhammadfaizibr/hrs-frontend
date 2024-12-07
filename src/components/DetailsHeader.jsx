@@ -11,7 +11,7 @@ const DetailsHeader = (props) => {
     <section className="details-header">
       <div className="header-details">
         <h2 className="product-title">{props.data.name}</h2>
-        <p className="rating-reveiws"><span><FaStar/>{props.data.rating} <GoDotFill className="dot"/> {props.data.number_of_reviews == 0 && props.data.rating !== 0 ? 1 : props.data.number_of_reviews === 0 ? 'no' : props.data.number_of_reviews} reviews</span> <GoDotFill className="dot"/> <span> <HiLocationMarker/>{props.data.address ? props.data.address : props.data.location }</span></p>
+        <p className="rating-reveiws"><span><FaStar/>{props?.data?.rating ?props?.data?.rating.toFixed(1) : '' } <GoDotFill className="dot"/> {props.data.number_of_reviews == 0 && props.data.rating !== 0 ? 1 : props.data.number_of_reviews === 0 ? 'no' : props.data.number_of_reviews} reviews</span> <GoDotFill className="dot"/> <span> <HiLocationMarker/>{props.data.address ? props.data.address : props.data.location }</span></p>
         <p className="rating-reveiws">{props.data.email ?<span><IoIosMail/> {props.data.email}</span> : ""} <GoDotFill className="dot"/>{props.data.phone ? <span><IoMdCall/>{props.data.phone}</span>: ""}</p>
 
         <p className="product-desc">{props.data.description}</p>

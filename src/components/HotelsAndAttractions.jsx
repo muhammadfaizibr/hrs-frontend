@@ -171,14 +171,14 @@ const HotelsAndAttractions = React.memo((props) => {
           ) : (
             ""
           )}
-          <InfiniteScroll
+          {/* <InfiniteScroll
             dataLength={items.results.length}
-            next={fetchNextPage}
+            // next={fetchNextPage}
             hasMore={!!items.next}
             loader={<h4>Loading...</h4>}
-          >
+          > */}
             <div className="cards">
-              {items.results.map((e, i) => (
+              {items?.results.map((e, i) => (
                 <HotelAndAttractionCard
                   key={generateUniqueKey(
                     "hotel-and-attraction-card" + e.name + i + e.id
@@ -194,7 +194,7 @@ const HotelsAndAttractions = React.memo((props) => {
                 />
               ))}
             </div>
-          </InfiniteScroll>
+          {/* </InfiniteScroll> */}
         </>
       ) : (
         <p>{items?.isFetching ? <Loader /> : "No data available!"}</p>

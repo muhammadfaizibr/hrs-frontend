@@ -73,11 +73,11 @@ const Sidebar = ({ setFilters, filters, setQuery, items }) => {
   };
 
   const handleSubcategoryChange = (subcategories) => {
-    setFilters({ ...filters, subcategories: subcategories });
+    setFilters({ ...filters, subcategories: subcategories === filters.subcategories ? "" : subcategories });
   };
 
   const handlePlaceType = (place_type) => {
-    setFilters({ ...filters, place_type: place_type });
+    setFilters({ ...filters, place_type: place_type, amenities: place_type === "attraction" ? "" : filters.amenities });
   };
   const handleSortOptionChange = (item) => {
     setFilters({ ...filters, sort_by: item });
@@ -112,7 +112,7 @@ const Sidebar = ({ setFilters, filters, setQuery, items }) => {
       <div className="filter-group">
         <h4>Sort By</h4>
         <select
-        disabled={items.isFetching}
+          disabled={items.isFetching}
           value={filters?.sort_by}
           onChange={(item) => handleSortOptionChange(item.target.value)}
         >
@@ -128,29 +128,12 @@ const Sidebar = ({ setFilters, filters, setQuery, items }) => {
           ))}
         </select>
       </div>
-      {/* <div className="filter-group">
-        <h4>Rating Threshold</h4>
-        <div className="rating-buttons">
-          {ratings.map((rating, i) => (
-            <button disabled={items?.isFetching}
-              key={generateUniqueKey("side-bar-filter-rating" + rating + i)}
-              className={`rating-button ${
-                rating === parseInt(filters?.rating) ? "active" : ""
-              }`}
-              onClick={() => {
-                handleRatingChange(rating)
-              }}
-            >
-              {rating} Stars & Up
-            </button>
-          ))}
-        </div>
-      </div> */}
       <div className="filter-group">
         <h4>Cities</h4>
         <div className="rating-buttons">
           {cities.map((c, i) => (
-            <button disabled={items?.isFetching}
+            <button
+              disabled={items?.isFetching}
               key={generateUniqueKey("side-bar-filter-city" + c["type"] + i)}
               className={`rating-button ${
                 c["type"] === filters?.city ? "active" : ""
@@ -169,7 +152,8 @@ const Sidebar = ({ setFilters, filters, setQuery, items }) => {
         <h4>Category</h4>
         <div className="rating-buttons">
           {place_type.map((item, i) => (
-            <button disabled={items?.isFetching}
+            <button
+              disabled={items?.isFetching}
               key={generateUniqueKey(
                 "side-bar-filter-place-type" + item["type"] + i
               )}
@@ -185,46 +169,56 @@ const Sidebar = ({ setFilters, filters, setQuery, items }) => {
           ))}
         </div>
       </div>
-      {filters?.sort_by === "recommendations" ? <>{filters?.place_type === "hotel" ? (
-        <div className="filter-group">
-          <h4>Amenities</h4>
-          <div className="rating-buttons">
-            {amenities.map((item, i) => (
-              <button disabled={items?.isFetching}
-                key={generateUniqueKey("side-bar-filter-amenities" + item + i)}
-                className={`rating-button ${
-                  filters?.amenities?.includes(item) ? "active" : ""
-                }`}
-                onClick={() => {
-                  handleAmenitiesChange(item);
-                }}
-              >
-                {item}
-              </button>
-            ))}
+      {filters?.sort_by === "recommendations" ? (
+        <>
+          {filters?.place_type === "hotel" ? (
+            <div className="filter-group">
+              <h4>Amenities</h4>
+              <div className="rating-buttons">
+                {amenities.map((item, i) => (
+                  <button
+                    disabled={items?.isFetching}
+                    key={generateUniqueKey(
+                      "side-bar-filter-amenities" + item + i
+                    )}
+                    className={`rating-button ${
+                      filters?.amenities?.includes(item) ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      handleAmenitiesChange(item);
+                    }}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="filter-group">
+            <h4>Subcategoies</h4>
+            <div className="rating-buttons">
+              {subcategories.map((item, i) => (
+                <button
+                  disabled={items?.isFetching}
+                  key={generateUniqueKey("side-bar-subcategories" + item + i)}
+                  className={`rating-button ${
+                    filters?.subcategories?.includes(item) ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    handleSubcategoryChange(item);
+                  }}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         ""
       )}
-      <div className="filter-group">
-        <h4>Subcategoies</h4>
-        <div className="rating-buttons">
-          {subcategories.map((item, i) => (
-            <button disabled={items?.isFetching}
-              key={generateUniqueKey("side-bar-subcategories" + item + i)}
-              className={`rating-button ${
-                filters?.subcategories?.includes(item) ? "active" : ""
-              }`}
-              onClick={() => {
-                handleSubcategoryChange(item);
-              }}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-      </div></> : ""}
     </div>
   );
 };

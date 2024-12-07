@@ -16,11 +16,11 @@ function App() {
   const loaderRef = useRef(null);
 
   const handleSetProgress = (value) => {
-    setProgress(value);
-    loaderRef.current?.continuousStart();
-    if (value === 100) {
-      setTimeout(() => loaderRef?.current?.complete(), 500); 
-    }
+  //   setProgress(value);
+  //   loaderRef.current?.continuousStart();
+  //   if (value === 100) {
+  //     setTimeout(() => loaderRef?.current?.complete(), 500); 
+  //   }
   };
 
   return (
@@ -34,8 +34,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/listings" element={<Listings choice='Hotels' />} />
-        <Route path="/listings" element={<Listings choice='Attractions' />} />
+        <Route path="/listings" element={<Listings/>} />
         <Route path="/add-place" element={<AddNewPlace/>} />
         <Route path="/details/:id/" element={<Details/>} />
         <Route path="/weather" element={<Weather/>} />
