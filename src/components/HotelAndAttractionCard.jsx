@@ -6,6 +6,8 @@ import { FaStar } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { PiMountainsDuotone } from "react-icons/pi";
+import { LiaHotelSolid } from "react-icons/lia";
 
 const Card = ({
   imageSrc,
@@ -14,8 +16,9 @@ const Card = ({
   rating,
   linkTo,
   subcategories,
-  placeType,
+  place_type,
   ranking,
+  style
 }) => {
   const imgSrc =
     imageSrc?.includes("developers.elementor.com") || !imageSrc
@@ -33,17 +36,17 @@ const Card = ({
               effect="blur"
               wrapperProps={{ style: { transitionDelay: "1s" } }}
             />
+
           </div>
+              <p className="type-badge"> {place_type === "hotel" ? <LiaHotelSolid /> : <PiMountainsDuotone/>} {place_type}</p>
         </div>
         <div className="card-footer">
           <p className="product-title">{productTitle}</p>
-          <p className="rating-reveiws">
+          <p className="rating-reviews-light">
             <FaStar />
-            {rating} <GoDotFill className="dot" />{" "}
-            {number_of_reviews === 0 && rating !== 0 ? 1 : number_of_reviews == 0 ? 'no' : number_of_reviews} reviews{" "}
-            <GoDotFill className="dot" /> {subcategories}{" "}
-            <GoDotFill className="dot" /> {placeType} {ranking}
-          </p>
+            {rating.toFixed(1)} <GoDotFill className="dot" />{" "}
+            {rating && number_of_reviews === 0 ?  "1" : !rating && number_of_reviews === 0 ? "No" : number_of_reviews} reviews</p> 
+
         </div>
       </div>
     </Link>

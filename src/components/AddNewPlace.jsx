@@ -13,7 +13,6 @@ const place_type = [
   { name: "Attraction", type: "attraction" },
 ];
 
-
 const cities = [
   { name: "Karachi", type: "karachi" },
   { name: "Islamabad", type: "islamabad" },
@@ -28,7 +27,8 @@ const AddNewPlace = () => {
   const navigate = useNavigate();
 
   const { access_token } = getToken();
-  const { data: userProData, isSuccess: userProDataIsSuccess } = useGetLoggedUserQuery(access_token);
+  const { data: userProData, isSuccess: userProDataIsSuccess } =
+    useGetLoggedUserQuery(access_token);
 
   const [server_error, setServerError] = useState({});
   const [server_msg, setServerMsg] = useState(false);
@@ -45,13 +45,16 @@ const AddNewPlace = () => {
       );
     }
     const callVerifyToken = async () => {
-    if (!(await verifyToken())){
-      navigate("/login");
-      dispatch(unSetUserToken({ access_token: null }));
-      dispatch(unSetUserToken({ access_token: null }));
-      dispatch(setUserInfo({ username: "", email: "" }));
-    }}
-    callVerifyToken()
+      if (!(await verifyToken())) {
+        console.log('here')
+        navigate("/login");
+
+        dispatch(unSetUserToken({ access_token: null }));
+        dispatch(unSetUserToken({ access_token: null }));
+        dispatch(setUserInfo({ username: "", email: "" }));
+      }
+    };
+    callVerifyToken();
   }, [dispatch, navigate, userProData, userProDataIsSuccess]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -59,7 +62,7 @@ const AddNewPlace = () => {
 
   const handleImage = (e) => {
     setHotelImage(e.target.files[0]);
-  }
+  };
 
   const handleAddNewPlace = async (e) => {
     setIsLoading(true);
@@ -91,7 +94,6 @@ const AddNewPlace = () => {
         body: data,
         method: "POST",
         headers: {
-          // 'Content-Type': 'application/json',
           Authorization: "Bearer " + access_token,
         },
       });
@@ -115,8 +117,6 @@ const AddNewPlace = () => {
           setServerError({});
           setServerMsg(true);
           setIsLoading(false);
-
-
         }
       }
     } catch (error) {
@@ -134,7 +134,7 @@ const AddNewPlace = () => {
   const handleCity = (event) => {
     setCity(event.target.value.toLocaleLowerCase());
   };
-  
+
   return (
     <div className="form-container">
       <div className="form-box">
@@ -143,52 +143,67 @@ const AddNewPlace = () => {
           <div className="form-group">
             <label htmlFor="place-name">Place Name</label>
 
-
             <input
               type="text"
               id="place-name"
               name="place-name"
               placeholder="What's the place name?"
-              
             />
-          {server_error?.name ? <p className="form-field-error">{server_error.name[0]}</p> : ""}
-
+            {server_error?.name ? (
+              <p className="form-field-error">{server_error.name[0]}</p>
+            ) : (
+              ""
+            )}
           </div>
           <div className="form-group">
-
             <label htmlFor="place-location">Location</label>
             <input
               type="text"
               id="place-location"
               name="place-location"
               placeholder="Where it is?"
-              
             />
-                      {server_error?.location ? <p className="form-field-error">{server_error.location[0]}</p> : ""}
-
+            {server_error?.location ? (
+              <p className="form-field-error">{server_error.location[0]}</p>
+            ) : (
+              ""
+            )}
           </div>
-
 
           <div className="form-group">
             <label htmlFor="place-location">City</label>
             <select value={city} onChange={handleCity}>
               {cities.map((e, i) => {
-                return <option key={generateUniqueKey("place_type"+e.name + i)}>{e.name}</option>;
+                return (
+                  <option key={generateUniqueKey("place_type" + e.name + i)}>
+                    {e.name}
+                  </option>
+                );
               })}
             </select>
-            {server_error?.city ? <p className="form-field-error">{server_error.city[0]}</p> : ""}
-
+            {server_error?.city ? (
+              <p className="form-field-error">{server_error.city[0]}</p>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="form-group">
             <label htmlFor="place-location">Type</label>
             <select value={placeType} onChange={handlePlaceTypeChange}>
               {place_type.map((e, i) => {
-                return <option key={generateUniqueKey("place_type"+e.name + i)}>{e.name}</option>;
+                return (
+                  <option key={generateUniqueKey("place_type" + e.name + i)}>
+                    {e.name}
+                  </option>
+                );
               })}
             </select>
-            {server_error?.place_type ? <p className="form-field-error">{server_error.place_type[0]}</p> : ""}
-
+            {server_error?.place_type ? (
+              <p className="form-field-error">{server_error.place_type[0]}</p>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="form-group">
@@ -198,17 +213,30 @@ const AddNewPlace = () => {
               id="place-contact"
               name="place-contact"
               placeholder="Email or Phone"
-              
             />
-                        {server_error?.phone ? <p className="form-field-error">{server_error.phone[0]}</p> : ""}
-
+            {server_error?.phone ? (
+              <p className="form-field-error">{server_error.phone[0]}</p>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="form-group">
             <label htmlFor="place-location">Picutres</label>
-            <input type="file" accept='image/*' name="place-image" onChange={handleImage} />
+            <input
+              type="file"
+              accept="image/*"
+              name="place-image"
+              onChange={handleImage}
+            />
           </div>
-          {server_error?.non_field_errors ? <p className="form-field-error">{server_error.non_field_errors[0]}</p> : ""}
+          {server_error?.non_field_errors ? (
+            <p className="form-field-error">
+              {server_error.non_field_errors[0]}
+            </p>
+          ) : (
+            ""
+          )}
 
           <button type="submit" className="form-button">
             Add Place

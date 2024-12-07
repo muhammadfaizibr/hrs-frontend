@@ -15,7 +15,7 @@ const Layout = ({loaderRef, progress}) => {
       <Topbar />
       <Navbar />
 
-        <TopLoadingBar height={2} color="#ffc107" ref={loaderRef} progress={progress} />
+        <TopLoadingBar height={4} color="#ffc107" ref={loaderRef} progress={progress} />
       <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
         <div className="layout-setting">
           <Outlet/>

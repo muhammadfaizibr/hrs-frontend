@@ -24,10 +24,10 @@ const Details = () => {
     results: [],
   });
   const [filters, setFilters] = useState({
-    city: '',
-    place_type: '',
+    city: "",
+    place_type: "",
     sort_by: "recommendations",
-    related:true
+    related: true,
   });
   const query = "";
   const {
@@ -46,7 +46,12 @@ const Details = () => {
   useEffect(() => {
     if (isPlaceSuccess && placeData) {
       setItem(placeData);
-      setFilters({...filters, city: placeData.city, place_type: placeData.place_type})
+      setFilters({
+        ...filters,
+        city: placeData.city,
+        place_type: placeData.place_type,
+      });
+      
     }
   }, [placeData, isPlaceSuccess]);
 
@@ -92,9 +97,9 @@ const Details = () => {
     fetchedOrUpdatedFilters,
     isPageConcat,
   }) => {
+    try{    
     setItems({ ...items, isSuccess: false, isFetching: true });
 
-    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     const res = await fetchPlaces({
       query: fetchedOrUpdatedQuery,
       filters: fetchedOrUpdatedFilters,
@@ -105,17 +110,21 @@ const Details = () => {
       isFetching: false,
       results: isPageConcat ? items.results.concat(res.results) : res.results,
     });
+  } catch (error) {
 
+    console.error("Error fetching places:", error);
+
+  }
 
   };
 
   useEffect(() => {
-    callFetchPlaces({ fetchedOrUpdatedQuery: query, fetchedOrUpdatedFilters: filters });
+    
+    callFetchPlaces({
+      fetchedOrUpdatedQuery: query,
+      fetchedOrUpdatedFilters: filters,
+    });
   }, [filters]);
-
-
-
-
 
   useEffect(() => {
     setProgress(100);
@@ -137,18 +146,13 @@ const Details = () => {
       />
 
       <HotelsAndAttractions
-        type="listing"
-        heading="Top Hotels"
-        // query={query}
-        // filters={filters}
-        // setPage={setPage}
+        type="featured"
+        heading="You may also like"
         page={page}
         setItems={setItems}
         items={items}
         related={true}
       />
-
-      
     </section>
   ) : (
     <h2>No Data</h2>

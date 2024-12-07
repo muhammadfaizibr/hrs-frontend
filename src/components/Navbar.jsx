@@ -25,6 +25,9 @@ const Navbar = () => {
 
   const dispatch = useDispatch()
   const { access_token } = getToken()
+  if (access_token){
+    routes.push({ name: "Favourites", link: "/favourites" })
+  }
 
   const handleLogout = () =>{
     removeToken()

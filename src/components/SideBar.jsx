@@ -69,7 +69,7 @@ const Sidebar = ({ setFilters, filters, setQuery, items }) => {
   // };
 
   const handleCityChange = (city) => {
-    setFilters({ ...filters, city: city });
+    setFilters({ ...filters, city: filters.city === city ? "" : city });
   };
 
   const handleSubcategoryChange = (subcategories) => {
@@ -77,7 +77,7 @@ const Sidebar = ({ setFilters, filters, setQuery, items }) => {
   };
 
   const handlePlaceType = (place_type) => {
-    setFilters({ ...filters, place_type: place_type, amenities: place_type === "attraction" ? "" : filters.amenities });
+    setFilters({ ...filters, place_type:  filters.place_type === place_type ? "" : place_type, amenities: place_type === "attraction" ? "" : filters.amenities });
   };
   const handleSortOptionChange = (item) => {
     setFilters({ ...filters, sort_by: item });

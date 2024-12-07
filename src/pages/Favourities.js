@@ -8,6 +8,8 @@ import { ProgressContext } from "../contexts/ProgressContext";
 import { CiFilter } from "react-icons/ci";
 import { useLocation } from "react-router-dom";
 import { fetchPlaces } from "../services/customFetchAPI";
+import Loader from "../components/Loader";
+import NoResults from "../components/NoResults";
 
 const Listings = () => {
   const setProgress = useContext(ProgressContext);
@@ -89,10 +91,9 @@ const Listings = () => {
       fetchedOrUpdatedFilters: fetchedFilters,
       fetchedOrUpdatedQuery: fetchedQuery,
     });
-  }, [location.search]);
+  }, []);
 
   useEffect(() => {
-    setProgress(0)
     if (firstMounted) {
       return;
     } else {
@@ -114,7 +115,6 @@ const Listings = () => {
         fetchedOrUpdatedQuery: query,
       });
     }
-    
   }, [filters]);
 
   const handleSearch = () => {
@@ -128,46 +128,27 @@ const Listings = () => {
     setProgress(100);
   }, [setProgress]);
 
-;
-
   return (
     <section className="listing-wrapper">
-
-
       <div className="listing-header">
-        <h2>
-          Discover&nbsp;
-          {filters.place_type
-            ? filters.place_type + "s"
-            : "Hotels & Attractions"}
-        </h2>
-        <SearchBar
-          query={query}
-          setQuery={setQuery}
-          items={items}
-          handleSearch={handleSearch}
-          filters={filters}
-        />
+        <h2>Favourites</h2>
       </div>
-      <button className="filters secondary-btn" onClick={toggleMobileMenu}>
-        <CiFilter /> All Filters
-      </button>
       <div className="listing-content">
-        <div className={isMobile ? "toggle-sidebar mobile" : "toggle-sidebar"}>
-          <Sidebar
-            setQuery={setQuery}
-            items={items}
-            filters={filters}
-            setFilters={setFilters}
-          />
-        </div>
-        <HotelsAndAttractions
+        
+        {items?.results?.length > 0 ? (
+          <HotelsAndAttractions
             type="listing"
-            heading="Top Hotels"
+            heading=""
             setPage={setPage}
             page={page}
             items={items}
+
           />
+        ) : items?.isFetching ? (
+          <Loader />
+        ) : (
+          <NoResults message="You have no Favourites." />
+        )}
       </div>
     </section>
   );

@@ -90,7 +90,8 @@ const Home = () => {
       <section className='home-content-wrapper'>
 
         <FeaturedCities />
-        {data?.id ? <HotelsAndAttractions type="featured" heading="Relevant For You" items={items}  page={page} setPage={setPage} /> : ''}
+          
+          {data?.id ? <HotelsAndAttractions type="featured" heading="Relevant For You" items={items}  page={page} setPage={setPage} /> : ''}
       </section>
 
 

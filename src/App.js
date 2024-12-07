@@ -27,7 +27,6 @@ function App() {
     <React.Fragment>
 
     <Router>
-    
     <ProgressContext.Provider value={handleSetProgress}>
     <Routes>
       <Route path="/" element={<Layout loaderRef={loaderRef} progress={progress} />}>
