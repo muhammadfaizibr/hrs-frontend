@@ -31,7 +31,7 @@ const DetailsHeader = (props) => {
       
       </div>
       <div className="featured-img">
-        <img src={props.data.image_url} alt={props.data.name} className="card-image" />
+        <img src={props.data.is_image_file ? props.data.image_file : props.data.image_url ? props.data.image_url : '/dummy.png' } alt={props.data.name} className="card-image" />
       </div>
     </section>
   )

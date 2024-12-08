@@ -9,14 +9,11 @@ import { CiFilter } from "react-icons/ci";
 import { useLocation } from "react-router-dom";
 import { fetchPlaces } from "../services/customFetchAPI";
 
-
 const Listings = () => {
   const setProgress = useContext(ProgressContext);
   const [isMobile, setIsMobile] = useState(false);
   const [firstMounted, setFirstMounted] = useState(true);
   const location = useLocation();
-
-
 
   const [page, setPage] = useState(1);
   const [items, setItems] = useState({
@@ -62,23 +59,21 @@ const Listings = () => {
       }));
     } catch (error) {
       console.error("Error fetching places:", error);
-      setItems((prev) => ({ ...prev, isFetching: false, isSuccess: false }));
+      setItems((prev) => ({ ...prev, isFetching: false, isSuccess: false, }));
     }
     setFirstMounted(false);
   };
 
   useEffect(() => {
-    if (firstMounted){
-      return
-    }
-    else{
-      console.log('why here?')
+    if (firstMounted) {
+      return;
+    } else {
       callFetchPlaces({
-      fetchedOrUpdatedQuery: query,
-      fetchedOrUpdatedFilters: filters,
-      isPageConcat: true,
-    });
-  }
+        fetchedOrUpdatedQuery: query,
+        fetchedOrUpdatedFilters: filters,
+        isPageConcat: true,
+      });
+    }
   }, [page]);
 
   useEffect(() => {
@@ -98,26 +93,20 @@ const Listings = () => {
       fetchedOrUpdatedFilters: fetchedFilters,
       fetchedOrUpdatedQuery: fetchedQuery,
     });
-
-
   }, [location.search]);
 
   useEffect(() => {
-    setProgress(0)
+    setProgress(0);
     if (firstMounted) {
-      console.log('there')
       return;
     } else {
-      console.log('here')
       const searchParams = new URLSearchParams();
       searchParams.set("query", query);
       Object.keys(filters).forEach((key) => {
         if (filters[key]) {
           searchParams.set(key, filters[key]);
-
         }
       });
-
 
       const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
       window.history.replaceState(null, "", newUrl);
@@ -127,7 +116,6 @@ const Listings = () => {
         fetchedOrUpdatedQuery: query,
       });
     }
-    
   }, [filters]);
 
   const handleSearch = () => {
@@ -141,15 +129,8 @@ const Listings = () => {
     setProgress(100);
   }, [setProgress]);
 
-;
-
-
-
-
   return (
     <section className="listing-wrapper">
-
-
       <div className="listing-header">
         <h2>
           Discover&nbsp;
@@ -178,12 +159,12 @@ const Listings = () => {
           />
         </div>
         <HotelsAndAttractions
-            type="listing"
-            heading="Top Hotels"
-            setPage={setPage}
-            page={page}
-            items={items}
-          />
+          type="listing"
+          heading="Top Hotels"
+          setPage={setPage}
+          page={page}
+          items={items}
+        />
       </div>
     </section>
   );

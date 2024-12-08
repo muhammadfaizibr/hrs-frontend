@@ -277,3 +277,30 @@ button:disabled:hover{
 .infinite-scroll-component__outerdiv{
   width: 100%;
 }
+
+ 
+  /* Rating Buttons */
+  .rating-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .rating-button {
+    flex: 1 1 calc(50% - 10px);
+    padding: 10px;
+    border: 1px solid var(--light-gray);
+    border-radius: 1rem;
+    background-color: var(--white);
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .rating-button.active,
+  .rating-button:hover {
+    background-color: var(--primary);
+    color: var(--white);
+  }
+  

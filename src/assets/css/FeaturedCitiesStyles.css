@@ -7,7 +7,9 @@
     /* background-color: var(--white); */
     /* border: 1px solid var(--light-gray); */
     /* padding: 20px; */
+    overflow: hidden !important;
     gap: 50px;
+    width: 100%;
 }
 
 .featured-cities .content{

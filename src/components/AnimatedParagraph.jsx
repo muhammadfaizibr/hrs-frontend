@@ -13,7 +13,7 @@ const AnimatedParagraph = ({ text }) => {
         );
       }
       const splitText = line.split("*");
-      if (splitText.length > 1) {
+      if (splitText?.length > 1) {
         return splitText.map((part, idx) => (
           <React.Fragment key={idx}>
             {idx > 0 && <b>{splitText[idx - 1]}</b>}

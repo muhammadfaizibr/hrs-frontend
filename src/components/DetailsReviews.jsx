@@ -48,7 +48,8 @@ const DetailsReviews = (props) => {
     }
   };
 
-  const rating_number = props?.data?.rating?.toFixed(1);
+  const rating_number = (props?.data?.rating)?.toFixed(1);
+
   return (
     <div className="details-reviews">
       <h3>Ratings & Reviews</h3>
@@ -59,18 +60,9 @@ const DetailsReviews = (props) => {
           {rating_number ? <div className="ratings">
             {rating_number && (
               <div className="rating-stars">
-                {[...Array(Math.floor(rating_number))].map((_, i) => (
+                {[1,2,3,4,5].map((_, i) => (
                   <FaStar key={generateUniqueKey(`filled_star_${i}`)} />
                 ))}
-                {rating_number % 1 !== 0 && (
-                  <FaRegStarHalfStroke key={generateUniqueKey("half_star")} />
-                )}
-                {[...Array(5 - Math.ceil(rating_number))].map((_, i) => (
-                  <FaRegStar key={generateUniqueKey(`empty_star_${i}`)} />
-                ))}
-                {/* {[1,2,3,4,5].map((e, i) => (
-                 <FaRegStar key={generateUniqueKey(`empty_star_${i}`)} />
-                ))} */}
               </div>
             )}
             <div className="rating-annotates">

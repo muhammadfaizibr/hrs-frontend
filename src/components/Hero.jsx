@@ -29,7 +29,7 @@ const Hero = () => {
       };
   return (
     <section className="hero">
-        <h1 className='h1-light'>Let's Leave The Road, And Take The Travosy</h1>
+        <h1 className='h1-light'>Let's Leave The Road, And Take The Travel Wise</h1>
 
         <div className="hero-action">
             <div className="selection-bar">

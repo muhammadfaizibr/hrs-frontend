@@ -95,7 +95,7 @@ const WeatherSearch = () => {
             </tr>
           </thead>
           <tbody>
-            {weatherData.length > 0 ? (
+            {weatherData?.length > 0 ? (
               weatherData.map((data, index) => (
                 <tr key={index}>
                   <td>{data.location.name}, {data.location.country}</td>

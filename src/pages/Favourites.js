@@ -39,6 +39,7 @@ const Favourites = () => {
         if (!(await verifyToken())) {
           navigate("/login");
         } else if (userProDataIsSuccess && userProData) {
+          console.log('userProData', userProData.id)
           setUserId(userProData.id);
         }
       };
@@ -47,30 +48,32 @@ const Favourites = () => {
   }, [access_token, navigate, userProDataIsSuccess, userProData]);
 
   // Fetch favourites whenever userId or page changes
+
+  const callFetchFavourite = async (isPageConcat = false) => {
+    try {
+      setItems((prev) => ({ ...prev, isFetching: true, isSuccess: false }));
+      const res = await fetchFavourite({
+        user: userId,
+        page,
+      });
+
+      const places = res.results.map((result) => result.place); 
+
+      setItems((prev) => ({
+        ...res,
+        isSuccess: true,
+        isFetching: false,
+        results: isPageConcat ? prev.results.concat(places) : places,
+      }));
+    } catch (error) {
+      console.error("Error fetching places:", error);
+      setItems((prev) => ({ ...prev, isFetching: false, isSuccess: false }));
+    }
+  };
+
+
   useEffect(() => {
     if (!userId) return;
-
-    const callFetchFavourite = async (isPageConcat = false) => {
-      try {
-        setItems((prev) => ({ ...prev, isFetching: true, isSuccess: false }));
-        const res = await fetchFavourite({
-          query: userId,
-          page,
-        });
-
-        const places = res.results.map((result) => result.place); 
-
-        setItems((prev) => ({
-          ...res,
-          isSuccess: true,
-          isFetching: false,
-          results: isPageConcat ? prev.results.concat(places) : places,
-        }));
-      } catch (error) {
-        console.error("Error fetching places:", error);
-        setItems((prev) => ({ ...prev, isFetching: false, isSuccess: false }));
-      }
-    };
 
     callFetchFavourite(page > 1); // Concatenate results if it's not the first page
   }, [userId, page]);

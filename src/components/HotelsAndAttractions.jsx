@@ -11,10 +11,14 @@ import { getToken } from "../services/localStorageService";
 import { useGetLoggedUserQuery } from "../services/userAuthAPI";
 import verifyToken from "../features/verifyToken";
 import { addToFavourite } from "../services/customFetchAPI";
-// import { useNavigate } from "react-router-dom";
 import Notification from "./Notification.jsx";
 
 const HotelsAndAttractions = React.memo((props) => {
+  const cities = [
+    { name: "Karachi", type: "karachi" },
+    { name: "Lahore", type: "lahore" },
+    { name: "Islamabad", type: "islamabad" },
+  ];
   const { items, setPage, type, heading } = props;
   // const [server_error, setServerError] = useState({});
   // const [generalError, setGeneralError] = useState();
@@ -38,7 +42,6 @@ const HotelsAndAttractions = React.memo((props) => {
         user: userProData.id,
         place: place_id,
       };
-      console.log(actualData, "actualData");
       const res = await addToFavourite(JSON.stringify(actualData));
       if (res.error) {
         // setServerError(res.error.data.errors);
@@ -69,6 +72,11 @@ const HotelsAndAttractions = React.memo((props) => {
   const triggerNotification = (msg, type) => {
     setNotification({ message: msg, type });
   };
+
+  const handleCityChange = (city) => {
+    props.setFilters({ ...props.filters, city: props.filters.city === city ? "" : city });
+  };
+
   return (
     <section className="featured-cards">
       <Notification
@@ -100,7 +108,24 @@ const HotelsAndAttractions = React.memo((props) => {
           <h2>{heading}</h2>
         </div>
       )}
-
+        {type === "featured" && props?.home_page  && props?.home_page?.sort_by !== "collabrative-filtering" ? <div className="rating-buttons" style={{width: '100%', justifyContent: 'center'}}>
+          {cities.map((c, i) => (
+            <button
+              disabled={items?.isFetching}
+              key={generateUniqueKey("home-page-filter-city" + c["type"] + i)}
+              className={`rating-button ${
+                c["type"] === props.filters?.city ? "active" : ""
+              }`} style={{flexGrow: 'unset', flexBasis: 'unset'}}
+              onClick={() => {
+                props.setFilters({ ...props.filters, city: c });
+                handleCityChange(c["type"]);
+              }}
+            >
+              {c["name"]}
+            </button>
+          ))}
+        </div>: ''}
+      
       {items?.description && !props.related ? (
         <AnimatedParagraph text={items?.description} />
       ) : (
@@ -114,7 +139,7 @@ const HotelsAndAttractions = React.memo((props) => {
       />
 
       <InfiniteScroll
-        dataLength={items.results.length}
+        dataLength={items?.results?.length}
         next={fetchNextPage}
         hasMore={!!items.next}
         loader={<Loader />}
@@ -125,7 +150,7 @@ const HotelsAndAttractions = React.memo((props) => {
               key={generateUniqueKey(
                 "hotel-and-attraction-card" + e.name + i + e.id
               )}
-              imageSrc={e.is_image_file ? e.image_url : e.image_url}
+              imageSrc={e.is_image_file ? e.image_file : e.image_url ? e.image_url : '/dummy.png'}
               productTitle={e.name}
               number_of_reviews={e.number_of_reviews}
               rating={e.rating}
@@ -142,7 +167,7 @@ const HotelsAndAttractions = React.memo((props) => {
         </div>
       </InfiniteScroll>
       {!items?.isFetching && items.results.length === 0 ? (
-        <p>No data available!</p>
+        <p>Start giving reviews to find your best matches!</p>
       ) : (
         ""
       )}

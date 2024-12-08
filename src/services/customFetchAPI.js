@@ -47,7 +47,6 @@ const fetchPlaces = async (data) => {
   };
 
   const fetchFavourite = async (data) => {
-    console.log('2 times')
     try {
       let url = `favourite/?user=${data?.user ? data?.user : ''}`
       const response = await fetch(baseUrl+url, {
@@ -71,7 +70,6 @@ const fetchPlaces = async (data) => {
   };
 
   const addToFavourite = async (data) => {
-    console.log('2 times')
     try {
       let url = `favourite/`
       const response = await fetch(baseUrl+url, {
