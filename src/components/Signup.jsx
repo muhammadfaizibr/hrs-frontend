@@ -3,7 +3,6 @@ import "../assets/css/FormStyles.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../services/userAuthAPI";
 import { storeToken } from "../services/localStorageService";
-import { useDispatch } from "react-redux";
 import { setUserToken } from "../features/authSlice";
 import { getToken } from "../services/localStorageService";
 import verifyToken from "../features/verifyToken";
@@ -15,7 +14,6 @@ const Signup = () => {
   let { access_token } = getToken();
   const [registerUser, { isLoading }] = useRegisterUserMutation();
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
@@ -35,8 +33,6 @@ const Signup = () => {
       }
       if (res.data) {
         storeToken(res.data.token);
-        let { access_token } = getToken();
-        dispatch(setUserToken({ access_token: access_token }));
         navigate("/");
       }
     } catch (error) {
@@ -46,13 +42,12 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    dispatch(setUserToken({ access_token: access_token }));
     const callVerifyToken = async () => {
       if ((await verifyToken())){
         navigate("/");
       }}
       callVerifyToken()
-  }, [access_token, dispatch]);
+  }, [access_token]);
 
   return (
     <div className="form-container">

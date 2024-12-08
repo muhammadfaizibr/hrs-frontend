@@ -8,7 +8,6 @@ import { useGetLoggedUserQuery } from "../services/userAuthAPI";
 import { getToken } from '../services/localStorageService'
 import { setUserInfo, unSetUserToken } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { fetchPlaces } from '../services/customFetchAPI'
 
 const products = [
@@ -35,7 +34,6 @@ const Home = () => {
   });
   const { access_token } = getToken()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const setProgress = useContext(ProgressContext);
   const { data, isSuccess } = useGetLoggedUserQuery(access_token);
   // items, setPage, type, heading, subHeading 
@@ -71,17 +69,10 @@ const Home = () => {
 
   useEffect(() => {
     if (data && isSuccess) {
-      dispatch(
-        setUserInfo({
-          id: data.id,
-          email: data.email,
-          username: data.name,
-        })
-      );
       callFetchPlaces({ fetchedOrUpdatedQuery: query, fetchedOrUpdatedFilters: {...filters, user: data.id} });
 
     }
-  }, [dispatch, navigate, data, isSuccess]);
+  }, [navigate, data, isSuccess]);
 
   
   return (

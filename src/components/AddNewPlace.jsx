@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../assets/css/FormStyles.css";
 import { getToken, removeToken } from "../services/localStorageService";
 import { useGetLoggedUserQuery } from "../services/userAuthAPI";
-import { setUserInfo, unSetUserToken } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import verifyToken from "../features/verifyToken";
-import { useDispatch } from "react-redux";
 import generateUniqueKey from "../features/uniqueKey";
 
 const place_type = [
@@ -23,7 +21,6 @@ const AddNewPlace = () => {
   const [placeType, setPlaceType] = useState(place_type[0].name);
   const [city, setCity] = useState(place_type[0].name);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { access_token } = getToken();
@@ -35,27 +32,13 @@ const AddNewPlace = () => {
   const [generalError, setGeneralError] = useState();
 
   useEffect(() => {
-    if (userProData && userProDataIsSuccess) {
-      dispatch(
-        setUserInfo({
-          id: userProData.id,
-          email: userProData.email,
-          username: userProData.name,
-        })
-      );
-    }
     const callVerifyToken = async () => {
       if (!(await verifyToken())) {
-        console.log('here')
         navigate("/login");
-
-        dispatch(unSetUserToken({ access_token: null }));
-        dispatch(unSetUserToken({ access_token: null }));
-        dispatch(setUserInfo({ username: "", email: "" }));
       }
     };
     callVerifyToken();
-  }, [dispatch, navigate, userProData, userProDataIsSuccess]);
+  }, [navigate, userProData, userProDataIsSuccess]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [hotelImage, setHotelImage] = useState("");
@@ -99,8 +82,6 @@ const AddNewPlace = () => {
       });
       if (re.status === 401) {
         removeToken();
-        dispatch(unSetUserToken({ access_token: null }));
-        dispatch(setUserInfo({ username: "", email: "" }));
 
         navigate("/login");
         setIsLoading(false);

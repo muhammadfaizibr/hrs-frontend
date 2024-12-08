@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../assets/css/FormStyles.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../services/userAuthAPI";
-import { storeToken } from "../services/localStorageService";
-import { useDispatch } from "react-redux";
-import { setUserToken } from "../features/authSlice";
-import { getToken } from "../services/localStorageService";
+import { storeToken, getToken } from "../services/localStorageService";
 import verifyToken from "../features/verifyToken";
 
 const Login = () => {
@@ -15,7 +12,6 @@ const Login = () => {
   let { access_token } = getToken();
   const [loginUser, { isLoading }] = useLoginUserMutation();
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -33,8 +29,6 @@ const Login = () => {
       }
       if (res.data) {
         storeToken(res.data.token);
-        let { access_token } = getToken();
-        dispatch(setUserToken({ access_token: access_token }));
         navigate("/");
       }
     } catch (error) {
@@ -45,14 +39,13 @@ const Login = () => {
 
   
   useEffect(() => {
-    dispatch(setUserToken({ access_token: access_token }));
 
     const callVerifyToken = async () => {
       if ((await verifyToken())){
         navigate("/");
       }}
       callVerifyToken()
-  }, [access_token, dispatch]);
+  }, [access_token]);
 
   return (
     <div className="form-container">

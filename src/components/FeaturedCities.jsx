@@ -13,8 +13,7 @@ const FeaturedCities = () => {
   return (
     <section className='featured-cities'>
         <div className="content">
-            <h2>Featured Cities</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptatum? Ducimus nostrum beatae placeat illo.</p>
+            <h2>Popular Cities</h2>
         </div>
 
         <div className="cities">

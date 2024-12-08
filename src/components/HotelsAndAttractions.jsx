@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/css/FeaturedCardsSectionStyles.css";
 import HotelAndAttractionCard from "./HotelAndAttractionCard";
 import PropTypes from "prop-types";
@@ -7,19 +7,78 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import generateUniqueKey from "../features/uniqueKey";
 import AnimatedParagraph from "./AnimatedParagraph";
 import Loader from "../components/Loader";
-import TopLoadingBar from 'react-top-loading-bar';
+import TopLoadingBar from "react-top-loading-bar";
+import { getToken } from "../services/localStorageService";
+import { useGetLoggedUserQuery } from "../services/userAuthAPI";
+import verifyToken from "../features/verifyToken";
+import { addToFavourite } from "../services/customFetchAPI";
+import { useNavigate } from "react-router-dom";
+import Notification from "./Notification.jsx";
 
 const HotelsAndAttractions = React.memo((props) => {
   const { query, items, setPage, type, heading } = props;
+  const [server_error, setServerError] = useState({});
+  const [generalError, setGeneralError] = useState();
+  const [favouriteNotify, setFavouriteNotify] = useState(false);
+  const [userID, setUserID] = useState();
+  const { access_token } = getToken();
+  const navigate = useNavigate();
+  const { data: userProData, isSuccess: userProDataIsSuccess } =
+    useGetLoggedUserQuery(access_token, { skip: !access_token });
 
   const fetchNextPage = () => {
     if (items?.next && !items?.isFetching) {
       setPage(props.page + 1);
     }
+
   };
 
+  const handleAddToFavourite = async (place_id) => {
+    try {
+      setGeneralError("");
+      const actualData = {
+        user: userProData.id,
+        place: place_id,
+      };
+      console.log(actualData, "actualData");
+      const res = await addToFavourite(JSON.stringify(actualData));
+      if (res.error) {
+        setServerError(res.error.data.errors);
+        triggerNotification("Already in your favourites!", "error");
+      } else {
+        triggerNotification("Added to favourites successfully!", "success");
+      }
+    } catch (error) {
+      setServerError({});
+      triggerNotification("Already in your favourites!", "error");
+
+      setGeneralError("An error occured, try again later!");
+    }
+  };
+
+  useEffect(() => {
+    const initialize = async () => {
+      if (!(await verifyToken())) {
+      } else if (userProDataIsSuccess && userProData) {
+        setUserID(userProData.id);
+      }
+    };
+    initialize();
+  }, []);
+
+  const [notification, setNotification] = useState({ message: "", type: "" });
+
+  const triggerNotification = (msg, type) => {
+    setNotification({ message: msg, type });
+  };
   return (
     <section className="featured-cards">
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        onClose={() => setNotification({ message: "", type: "" })}
+      />
+
       {true ? (
         <div
           style={{
@@ -50,7 +109,11 @@ const HotelsAndAttractions = React.memo((props) => {
         ""
       )}
       {/* {items?.isFetching ? <LineLoader loiprogress /> : ""} */}
-      <TopLoadingBar height={4} color="#0c4d2a" progress={items?.isFetching ? 30 : 100} />
+      <TopLoadingBar
+        height={4}
+        color="#0c4d2a"
+        progress={items?.isFetching ? 30 : 100}
+      />
 
       <InfiniteScroll
         dataLength={items.results.length}
@@ -72,6 +135,10 @@ const HotelsAndAttractions = React.memo((props) => {
               place_type={e.place_type}
               ranking={e.ranking}
               linkTo={`/details/${e.id}`}
+              id={e.id}
+              handleAddToFavourite={handleAddToFavourite}
+              disableFav={props.disableFav}
+              city={e.city}
             />
           ))}
         </div>

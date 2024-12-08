@@ -28,7 +28,6 @@
     display: flex;
     position: relative;
     flex-grow: 1;
-    /* border-radius: 1rem; */
     overflow: hidden;
     min-height: 220px;
     max-height: 220px;
@@ -42,19 +41,12 @@
 
   }
 
-  .card .featured-img img:hover{
-    transform: scale(1.15);
-    transition: .3s;
-
-  
-  }
   
   .card .featured-img img {
     width: 100%;
     height: auto;
     object-fit: cover;
     aspect-ratio: 1/1;
-    /* border-radius: 1rem; */
     transition: .3s;
 
   }
@@ -118,4 +110,27 @@
 
   .type-badge svg{
     font-size: 2rem;
+  }
+
+  .favourite{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--white);
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    transition: .3s;
+
+  }
+  .favourite svg{
+    font-size: 2rem;
+  }
+  .favourite:hover{
+    background-color: var(--primary);
+    transition: .3s;
+
   }

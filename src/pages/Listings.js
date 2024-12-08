@@ -9,11 +9,14 @@ import { CiFilter } from "react-icons/ci";
 import { useLocation } from "react-router-dom";
 import { fetchPlaces } from "../services/customFetchAPI";
 
+
 const Listings = () => {
   const setProgress = useContext(ProgressContext);
   const [isMobile, setIsMobile] = useState(false);
   const [firstMounted, setFirstMounted] = useState(true);
   const location = useLocation();
+
+
 
   const [page, setPage] = useState(1);
   const [items, setItems] = useState({
@@ -65,11 +68,17 @@ const Listings = () => {
   };
 
   useEffect(() => {
-    callFetchPlaces({
+    if (firstMounted){
+      return
+    }
+    else{
+      console.log('why here?')
+      callFetchPlaces({
       fetchedOrUpdatedQuery: query,
       fetchedOrUpdatedFilters: filters,
       isPageConcat: true,
     });
+  }
   }, [page]);
 
   useEffect(() => {
@@ -89,13 +98,17 @@ const Listings = () => {
       fetchedOrUpdatedFilters: fetchedFilters,
       fetchedOrUpdatedQuery: fetchedQuery,
     });
+
+
   }, [location.search]);
 
   useEffect(() => {
     setProgress(0)
     if (firstMounted) {
+      console.log('there')
       return;
     } else {
+      console.log('here')
       const searchParams = new URLSearchParams();
       searchParams.set("query", query);
       Object.keys(filters).forEach((key) => {
@@ -129,6 +142,9 @@ const Listings = () => {
   }, [setProgress]);
 
 ;
+
+
+
 
   return (
     <section className="listing-wrapper">

@@ -3,15 +3,18 @@ import { useLocation } from "react-router-dom";
 import "../assets/css/NavbarStyles.css";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
 import { unSetUserToken, setUserInfo } from "../features/userSlice";
 import { getToken,removeToken } from "../services/localStorageService";
 import generateUniqueKey from "../features/uniqueKey";
+
+const { access_token } = getToken()
+
 const routes = [
   { name: "Home", link: "/" },
   { name: "Hotels", link: `/listings?query=${encodeURIComponent("best hotels in karachi")}&city=karachi&place_type=hotel&sort_by=recommendations` },
   { name: "Attractions", link: `/listings?query=${encodeURIComponent("best attractions in karachi")}&city=karachi&place_type=attraction&sort_by=recommendations` },
   { name: "Weather", link: "/weather" },
+  ...(access_token ? [{ name: "Favourites", link: "/favourites" }] : []),
 ];
 
 const Navbar = () => {
@@ -23,16 +26,10 @@ const Navbar = () => {
     setIsMobile(!isMobile);
   };
 
-  const dispatch = useDispatch()
-  const { access_token } = getToken()
-  if (access_token){
-    routes.push({ name: "Favourites", link: "/favourites" })
-  }
+
 
   const handleLogout = () =>{
     removeToken()
-    dispatch(unSetUserToken({access_token: null}))
-    dispatch(setUserInfo({name: "", email: "", designation: ""}))
     navigate('/')
 
     
