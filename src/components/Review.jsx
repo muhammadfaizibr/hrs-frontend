@@ -15,7 +15,7 @@ const Review = (props) => {
         </div>
 
         <div className="review-content">
-            <p className="reviewer-name">{props.data.user.username}</p>
+            <p className="reviewer-name">{props.data.user.username} <span className={`sen ${props.data.sentiment === "positive" ? "sen-green" : props.data.sentiment === "negative" ? "sen-red" : "sen-gray"}`}>{props.data.sentiment}</span></p>
             <p className="reviewer-ratings">{rating_number}<span>{[...Array(parseInt(rating_number))].map((_, i) => {
             return <FaStar key={generateUniqueKey("reviewer-rating-filled_stars" + i)} />;
           })} </span><span style={{fontSize: '1.2rem'}}>{formattedDate(props.data.created_at)}</span> </p>

@@ -4,10 +4,10 @@ import { FaStar, FaRegStarHalfStroke, FaRegStar } from "react-icons/fa6";
 import Review from "./Review";
 import WriteReview from "./WriteReview";
 import generateUniqueKey from "../features/uniqueKey";
-import verifyToken from "../features/verifyToken";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useGetLoggedUserQuery, useGetReviewsQuery } from "../services/userAuthAPI";
 import { getToken } from "../services/localStorageService";
+import Loader from '../components/Loader';
 
 const DetailsReviews = (props) => {
   const { access_token } = getToken()
@@ -19,7 +19,7 @@ const DetailsReviews = (props) => {
   // const [reviewSuccess, setReviewSuccess] = useState(false)
   const {
     data: dataReviews,
-    isFetching: isFetchingReviews,
+    // isFetching: isFetchingReviews,
     isSuccess: isSuccessReviews,
   } = useGetReviewsQuery(
     { user: userID, place: props.data.id },
@@ -59,7 +59,7 @@ const DetailsReviews = (props) => {
           {rating_number ? <div className="ratings">
             {rating_number && (
               <div className="rating-stars">
-                {/* {[...Array(Math.floor(rating_number))].map((_, i) => (
+                {[...Array(Math.floor(rating_number))].map((_, i) => (
                   <FaStar key={generateUniqueKey(`filled_star_${i}`)} />
                 ))}
                 {rating_number % 1 !== 0 && (
@@ -67,33 +67,33 @@ const DetailsReviews = (props) => {
                 )}
                 {[...Array(5 - Math.ceil(rating_number))].map((_, i) => (
                   <FaRegStar key={generateUniqueKey(`empty_star_${i}`)} />
-                ))} */}
-                {[1,2,3,4,5].map((e, i) => (
-                 <FaRegStar key={generateUniqueKey(`empty_star_${i}`)} />
                 ))}
+                {/* {[1,2,3,4,5].map((e, i) => (
+                 <FaRegStar key={generateUniqueKey(`empty_star_${i}`)} />
+                ))} */}
               </div>
             )}
             <div className="rating-annotates">
-              <p className="total-ratings">Total Reviews: {props?.reviews?.count}</p>
+              <p className="total-ratings">Total Reviews: {props.data.number_of_reviews === 0 && props.data.rating !== 0 ? 1 : props.data.number_of_reviews === 0 ? 'no' : props.data.number_of_reviews}</p>
             </div>
           </div> : "No Rating Data"}
         </div>
         {userCanReview && !props.reviewSuccess ? <WriteReview user={userID} place={props.data.id} setReviewSuccess={props.setReviewSuccess}/> : ""}
       </div>
 
-      {/* <InfiniteScroll */}
-        {/* dataLength={props?.reviews?.results?.length}
+      <InfiniteScroll
+        dataLength={props?.reviews?.results?.length}
         next={fetchNextPage}
         hasMore={!!props?.reviews?.next}
-        loader={<h4>Loading...</h4>}
-      > */}
+        loader={<Loader/>}>
+      
         {props?.reviews?.results?.map((item, i) => (
           <Review
             key={generateUniqueKey(`review_${item.id}_${i}`)}
             data={item}
           />
         ))}
-      {/* </InfiniteScroll> */}
+      </InfiniteScroll>
     </div>
   );
 };

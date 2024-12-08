@@ -6,21 +6,9 @@ import { ProgressContext } from '../contexts/ProgressContext'
 import '../assets/css/HomeStyles.css'
 import { useGetLoggedUserQuery } from "../services/userAuthAPI";
 import { getToken } from '../services/localStorageService'
-import { setUserInfo, unSetUserToken } from "../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import { fetchPlaces } from '../services/customFetchAPI'
-
-const products = [
-  {name: 'Four Points by Sheraton Lahore', url: 'https://ak-d.tripcdn.com/images/0586z12000ev98nor2228_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Pearl Continental Hotel, Lahore', url: 'https://ak-d.tripcdn.com/images/220b13000000tsy6o384D_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Avari Xpress Gulberg', url: 'https://ak-d.tripcdn.com/images/0583612000chpr1t3EBD2_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Four Points by Sheraton Lahore', url: 'https://ak-d.tripcdn.com/images/0586z12000ev98nor2228_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Pearl Continental Hotel, Lahore', url: 'https://ak-d.tripcdn.com/images/220b13000000tsy6o384D_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Avari Xpress Gulberg', url: 'https://ak-d.tripcdn.com/images/0583612000chpr1t3EBD2_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Four Points by Sheraton Lahore', url: 'https://ak-d.tripcdn.com/images/0586z12000ev98nor2228_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Pearl Continental Hotel, Lahore', url: 'https://ak-d.tripcdn.com/images/220b13000000tsy6o384D_R_300_225_R5.jpg', link: '/details'},
-  {name: 'Avari Xpress Gulberg', url: 'https://ak-d.tripcdn.com/images/0583612000chpr1t3EBD2_R_300_225_R5.jpg', link: '/details'},
-]
+import Loader from '../components/Loader'
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -41,10 +29,15 @@ const Home = () => {
    setProgress(100); 
   }, [setProgress]);
   const query = "";
-  const [filters, setFilters] = useState({
+  // const [filters, setFilters] = useState({
+  //   user: data?.user,
+  //   sort_by: "collabrative-filtering",
+  // });
+
+  const filters = {
     user: data?.user,
     sort_by: "collabrative-filtering",
-  });
+  };
   const callFetchPlaces = async ({
     fetchedOrUpdatedQuery,
     fetchedOrUpdatedFilters,
@@ -82,7 +75,7 @@ const Home = () => {
 
         <FeaturedCities />
           
-          {data?.id ? <HotelsAndAttractions type="featured" heading="Relevant For You" items={items}  page={page} setPage={setPage} /> : ''}
+          {data?.id ? items?.isFetching ? <Loader/> : <HotelsAndAttractions type="featured" heading="Relevant For You" items={items}  page={page} setPage={setPage} /> : ''}
       </section>
 
 

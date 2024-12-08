@@ -5,7 +5,7 @@ const fetchPlaces = async (data) => {
       let url;
       
       if (data.filters?.sort_by === "collabrative-filtering") {
-        url = `collabrative-recommendations/?user=${data.filters?.user ? data.filters?.user : ''}`
+        url = `collabrative-recommendations/${data.filters?.user}/`
 
       }
 

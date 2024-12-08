@@ -62,6 +62,30 @@
     color: var(--text-para);
 }
 
+.sen{
+    text-transform: uppercase;
+    padding: 8px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    margin: 0 10px;
+}
+
+
+.sen-red{
+    background-color: rgba(255, 0, 0, 0.4);
+    color: red;
+}
+
+.sen-green{
+    background-color: rgba(0, 255, 162, 0.4);
+    color: green;
+}
+
+.sen-gray{
+    background-color: rgba(255, 165, 0, 0.2);
+    color: orange;
+}
+
 @media screen and (max-width:768px ) {
     .review .name-logo{
         min-width: 40px;

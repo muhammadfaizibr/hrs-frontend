@@ -1,18 +1,18 @@
 import React from 'react'
-import { TailSpin } from 'react-loader-spinner'
+import { ColorRing } from 'react-loader-spinner'
 
 const Loader = () => {
   return (
-<TailSpin
+    <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+<ColorRing
   visible={true}
   height="80"
   width="80"
-  color="#4fa94d"
-  ariaLabel="tail-spin-loading"
-  radius="1"
+  ariaLabel="color-ring-loading"
   wrapperStyle={{}}
-  wrapperClass=""
-  />)
+  wrapperClass="color-ring-wrapper"
+  colors={['#e58129', '#e58129', '#e58129', '#e58129', '#e58129']}
+  /></div>)
 }
 
 export default Loader

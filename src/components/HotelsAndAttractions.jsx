@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "../assets/css/FeaturedCardsSectionStyles.css";
 import HotelAndAttractionCard from "./HotelAndAttractionCard";
 import PropTypes from "prop-types";
-import { FiArrowRight } from "react-icons/fi";
 import InfiniteScroll from "react-infinite-scroll-component";
 import generateUniqueKey from "../features/uniqueKey";
 import AnimatedParagraph from "./AnimatedParagraph";
@@ -12,17 +11,16 @@ import { getToken } from "../services/localStorageService";
 import { useGetLoggedUserQuery } from "../services/userAuthAPI";
 import verifyToken from "../features/verifyToken";
 import { addToFavourite } from "../services/customFetchAPI";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Notification from "./Notification.jsx";
 
 const HotelsAndAttractions = React.memo((props) => {
-  const { query, items, setPage, type, heading } = props;
-  const [server_error, setServerError] = useState({});
-  const [generalError, setGeneralError] = useState();
-  const [favouriteNotify, setFavouriteNotify] = useState(false);
-  const [userID, setUserID] = useState();
+  const { items, setPage, type, heading } = props;
+  // const [server_error, setServerError] = useState({});
+  // const [generalError, setGeneralError] = useState();
+  // const [userID, setUserID] = useState();
   const { access_token } = getToken();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { data: userProData, isSuccess: userProDataIsSuccess } =
     useGetLoggedUserQuery(access_token, { skip: !access_token });
 
@@ -35,7 +33,7 @@ const HotelsAndAttractions = React.memo((props) => {
 
   const handleAddToFavourite = async (place_id) => {
     try {
-      setGeneralError("");
+      // setGeneralError("");
       const actualData = {
         user: userProData.id,
         place: place_id,
@@ -43,16 +41,16 @@ const HotelsAndAttractions = React.memo((props) => {
       console.log(actualData, "actualData");
       const res = await addToFavourite(JSON.stringify(actualData));
       if (res.error) {
-        setServerError(res.error.data.errors);
+        // setServerError(res.error.data.errors);
         triggerNotification("Already in your favourites!", "error");
       } else {
         triggerNotification("Added to favourites successfully!", "success");
       }
     } catch (error) {
-      setServerError({});
+      // setServerError({});
       triggerNotification("Already in your favourites!", "error");
 
-      setGeneralError("An error occured, try again later!");
+      // setGeneralError("An error occured, try again later!");
     }
   };
 
@@ -60,7 +58,7 @@ const HotelsAndAttractions = React.memo((props) => {
     const initialize = async () => {
       if (!(await verifyToken())) {
       } else if (userProDataIsSuccess && userProData) {
-        setUserID(userProData.id);
+        // setUserID(userProData.id);
       }
     };
     initialize();
