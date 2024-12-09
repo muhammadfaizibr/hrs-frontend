@@ -175,19 +175,19 @@ const HotelsAndAttractions = React.memo((props) => {
   );
 });
 
-HotelsAndAttractions.propTypes = {
-  type: PropTypes.string.isRequired,
-  heading: PropTypes.string.isRequired,
-  subHeading: PropTypes.string.isRequired,
-  items: PropTypes.object.isRequired,
-  setPage: PropTypes.func,
-};
+// HotelsAndAttractions.propTypes = {
+//   type: PropTypes.string.isRequired,
+//   heading: PropTypes.string.isRequired,
+//   subHeading: PropTypes.string.isRequired,
+//   items: PropTypes.object.isRequired,
+//   setPage: PropTypes.func,
+// };
 
-HotelsAndAttractions.defaultProps = {
-  type: "default",
-  heading: "",
-  subHeading: "",
-  setPage: () => {},
-};
+// HotelsAndAttractions.defaultProps = {
+//   type: "default",
+//   heading: "",
+//   subHeading: "",
+//   setPage: () => {},
+// };
 
 export default HotelsAndAttractions;

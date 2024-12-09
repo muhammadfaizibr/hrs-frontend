@@ -70,10 +70,10 @@ const Card = ({
   );
 };
 
-Card.propTypes = {
-  imageSrc: PropTypes.string.isRequired,
-  productTitle: PropTypes.string.isRequired,
-  linkTo: PropTypes.string.isRequired,
-};
+// Card.propTypes = {
+//   imageSrc: PropTypes.string.isRequired,
+//   productTitle: PropTypes.string.isRequired,
+//   linkTo: PropTypes.string.isRequired,
+// };
 
 export default Card;

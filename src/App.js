@@ -24,9 +24,10 @@ function App() {
     }
   };
 
+
   return (
     <React.Fragment>
-
+ {/* <div id="google_translate_element"></div> */}
     <Router>
     <ProgressContext.Provider value={handleSetProgress}>
     <Routes>

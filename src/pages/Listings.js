@@ -170,8 +170,8 @@ const Listings = () => {
   );
 };
 
-Listings.propTypes = {
-  choice: PropTypes.string.isRequired,
-};
+// Listings.propTypes = {
+//   choice: PropTypes.string.isRequired,
+// };
 
 export default Listings;

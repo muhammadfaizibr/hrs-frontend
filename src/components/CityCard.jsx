@@ -20,10 +20,10 @@ const CityCard = ({ imageSrc, cityName, linkTo }) => {
   );
 };
 
-CityCard.propTypes = {
-  imageSrc: PropTypes.string.isRequired,
-  cityName: PropTypes.string.isRequired,
-  linkTo: PropTypes.string.isRequired,
-};
+// CityCard.propTypes = {
+//   imageSrc: PropTypes.string.isRequired,
+//   cityName: PropTypes.string.isRequired,
+//   linkTo: PropTypes.string.isRequired,
+// };
 
 export default CityCard;

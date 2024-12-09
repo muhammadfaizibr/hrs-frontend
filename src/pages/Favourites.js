@@ -107,8 +107,8 @@ const Favourites = () => {
   );
 };
 
-Favourites.propTypes = {
-  choice: PropTypes.string.isRequired,
-};
+// Favourites.propTypes = {
+//   choice: PropTypes.string.isRequired,
+// };
 
 export default Favourites;
