@@ -14,17 +14,15 @@ const fetchPlaces = async (data) => {
           data.filters?.sort_by === "rating" ? "-rating" : "-number_of_reviews"
         }&city=${
           data.filters?.city ? data.filters?.city.toLowerCase() : ""
-        }&type=${data.filters?.place_type || ""}`;
+        }&place_type=${data.filters?.place_type ? data.filters?.place_type : ''}`;
       }
       else  {
         // url = `recommendations?query=${encodeURIComponent(data.query ? data.query : '')}&city=${
         url = `recommendations?query=${encodeURIComponent(data.query ? data.query : '')}&city=${
           data.filters?.city ? data.filters?.city.toLowerCase() : ""
-        }&type=${
-          data.filters?.place_type || ""
         }&subcategories=${data.filters?.subcategories || ""}&amenities=${
           data.filters?.amenities || ""
-        }&related=${data.filters?.related ? true : '' }`;
+        }&related=${data.filters?.related ? true : '' }&place_type=${data.filters?.place_type ? data.filters?.place_type : ''}`;
       } 
       const response = await fetch(baseUrl+url, {
         method: "GET",
